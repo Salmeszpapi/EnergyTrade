@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@if (@ViewData["Exist"] != null) {
+    <h3>@ViewData["Exist"] nevű felhasználó már foglalt</h3>
+}
+
+
+<form action="/Home/Register" method="post">
+    <h2>Register</h2>
+    <label for="username">Username</label>
+    <input type="text" id="Name" name="Name" placeholder="Username" required autofocus /></br>
+    <label for="username">Password</label>
+    <input type="text" id="password" name="password" placeholder="Password" required autofocus />
+    <input type="text" id="password2" name="password2" placeholder="password again" required autofocus /></br>
+    <button type="submit"> Register </button> or
+    <a href="/Home/login">Login</a>
+</form>
