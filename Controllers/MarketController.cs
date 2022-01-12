@@ -22,16 +22,17 @@ namespace EnergyTrade.Controllers
         [HttpPost]
         public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar)
         {
+            // megkell keresni id alapjan a usert
+            //aytan valahogy ossze kapcsolgatni a stock al hogy megfeleloen mukodjon a db
             EnergyContext db = new EnergyContext();
             if (!string.IsNullOrEmpty(Name))
             {
                 
             }
-            var a = db.Users.Where(x => x.Name == Name).ToList();
             var username = Convert.ToString(Session["logged_in"]);
             //newStock.User.Name = username;
             var userid = db.Users.Where(x => x.Name == username).ToList();
-            var foundStock = db.Stocks.Where(x => x.User.Id == userid[0].Id).ToList();
+            var foundStock = db.Stocks.Where(x => x.User.Id == userid[0].Id).ToList(); 
             Brand newBrand = new Brand();
             newBrand.Name = Brand;
             Product newProduct = new Product()
