@@ -129,3 +129,5 @@ C:\Users\salma\Desktop\munka\Csabi\EnergyTrade\bin\System.Memory.xml
 C:\Users\salma\Desktop\munka\Csabi\EnergyTrade\bin\System.Numerics.Vectors.xml
 C:\Users\salma\Desktop\munka\Csabi\EnergyTrade\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\salma\Desktop\munka\Csabi\EnergyTrade\bin\System.Text.Encodings.Web.xml
+C:\Users\salma\Desktop\munka\Csabi\EnergyTrade\bin\Microsoft.AspNetCore.Session.dll
+C:\Users\salma\Desktop\munka\Csabi\EnergyTrade\bin\Microsoft.AspNetCore.Session.xml

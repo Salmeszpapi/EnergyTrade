@@ -2,6 +2,8 @@
 using SSM.Common.Services.DataContext;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +15,8 @@ namespace EnergyTrade.Controllers
         // GET: Market
         public ActionResult Index()
         {
+            
+            
             return View();
         }
         public ActionResult Add() 
@@ -20,45 +24,116 @@ namespace EnergyTrade.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar)
+        public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar, HttpPostedFileBase file)
         {
-            // megkell keresni id alapjan a usert
-            //aytan valahogy ossze kapcsolgatni a stock al hogy megfeleloen mukodjon a db
-            EnergyContext db = new EnergyContext();
-            if (!string.IsNullOrEmpty(Name))
+            Session["logged_in"] = "kiki";
+            EnergyContext db = new EnergyContext(); //set db
+            StockItem newStockitem = new StockItem(); //new stockitem
+            byte[] byteImg = ConverToBytes(file);
+
+            var fileName = Path.GetFileName(file.FileName);
+            var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+            if (path != null )
             {
                 
-            }
-            var username = Convert.ToString(Session["logged_in"]);
-            //newStock.User.Name = username;
-            var userid = db.Users.Where(x => x.Name == username).ToList();
-            var foundStock = db.Stocks.Where(x => x.User.Id == userid[0].Id).ToList(); 
-            Brand newBrand = new Brand();
-            newBrand.Name = Brand;
-            Product newProduct = new Product()
+                file.SaveAs(path);
+                var brandid = db.Brands.Where(x => x.Name == Brand).ToList().FirstOrDefault();
+                Product newProduct = new Product();
+                if (brandid == null)
+                {
+                    Brand newBrand = new Brand()
+                    {
+                        Name = Brand,
+                    };  // if needed new brand
+                    newProduct.Name = Name;
+                    newProduct.Brand = newBrand;
+                    newProduct.Size = Convert.ToInt32(Size);
+                    newProduct.Coffein = Convert.ToInt32(Coffein);
+                    newProduct.Sugar = Convert.ToInt32(Sugar);
+                    newProduct.Image = byteImg;
+                } else
+                {
+                    newProduct.Name = Name;
+                    newProduct.Brand = brandid;
+                    newProduct.Size = Convert.ToInt32(Size);
+                    newProduct.Coffein = Convert.ToInt32(Coffein);
+                    newProduct.Sugar = Convert.ToInt32(Sugar);
+                    newProduct.Image = byteImg;
+                }
+                newStockitem.Product = newProduct;
+                newStockitem.Count = 1;
+
+                var username = Convert.ToString(Session["logged_in"]);
+                var userid = db.Users.Where(x => x.Name == username).ToList().FirstOrDefault();
+                var foundStock = db.Stocks.Where(x => x.User.Id == userid.Id).ToList().FirstOrDefault();
+
+                newStockitem.Stock = foundStock;
+                db.Products.Add(newProduct);
+                db.StockItems.Add(newStockitem);
+                db.SaveChanges();
+                return View();
+
+            } else
             {
-                Brand = newBrand,
-                Name = Name,
-                Size = Convert.ToInt32(Size),
-                Coffein = Convert.ToInt32(Coffein),
-                sugar = Convert.ToInt32(Sugar),
-
-            };
-
+                // img = null
+            }
             
-            StockItem newStockitem = new StockItem();
-            newStockitem.Product = newProduct;
-            newStockitem.Count = 1;
-            newStockitem.Stock.Id =Convert.ToInt32(foundStock[0].Id);
+            return View();
 
-            
-            
-            db.Products.Add(newProduct);
-            db.StockItems.Add(newStockitem);
-            
-            db.SaveChanges();
-            return Content(userid[0].Id.ToString());
+        }
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                file.SaveAs(path);
+            }
 
+            return RedirectToAction("UploadDocument");
+        
+        }
+        public ActionResult MyItems()
+        {
+            List<StockItem> MyProducts = new List<StockItem>();
+            //var brandid = db.Products.Where(x =>x.Brand.Id == 24).ToList().FirstOrDefault();
+            //string imreBase64Data = Convert.ToBase64String(brandid.Image);
+            //string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+            //ViewBag.ImageData = imgDataURL;
+            EnergyContext db = new EnergyContext();
+            var user = db.Users.Where(x => x.Name == "kiki").ToList().FirstOrDefault();
+            var stock = db.Stocks.Where(x => x.Id == user.Id).ToList().FirstOrDefault();
+            var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
+            //var result = StockItems[0]
+            List<int> ItemIds = new List<int>();
+            int count = 0;
+            //List<Product> ExistingProducts = new List<Product>();
+            foreach(var item in StockItems)
+            {
+                var Product = db.StockItems.Find(item.Id);
+                db.Entry(Product)
+                    .Reference(u => u.Product)
+                    .Load();
+
+                MyProducts.Add(Product);
+            }
+            
+            //here need to save products into a list 
+            var ExistingProducts = db.Products.Where(x => x.Id == 11).ToList();
+            //var myproducts = db.Products.Where(x => x.Id == StockItems[0].Product.Id).ToList();
+
+
+            return View(MyProducts);
+        }
+        public static byte[] ConverToBytes(HttpPostedFileBase file)
+        {
+            var length = file.InputStream.Length; //Length: 103050706
+            byte[] fileData = null;
+            using (var binaryReader = new BinaryReader(file.InputStream))
+            {
+                fileData = binaryReader.ReadBytes(file.ContentLength);
+            }
+            return fileData;
         }
     }
 }

@@ -10,7 +10,9 @@ namespace EnergyTrade.Controllers {
             if (!string.IsNullOrEmpty((string)Session["logged_in"])) {
                 return RedirectToAction("Index", "Market");
             }
+            return RedirectToAction("MyItems", "Market");
             return View("register");
+
             //return RedirectToAction("Index", "Market");
         }
         public ActionResult Register() {
@@ -19,15 +21,19 @@ namespace EnergyTrade.Controllers {
         [HttpPost]
         public ActionResult Register(string Name, string password, string password2) {
             EnergyContext db = new EnergyContext();
+            
             ViewData["Exist"] = null;
             if (!string.IsNullOrEmpty(Name)) {
                 var a = db.Users.Where(x => x.Name == Name).ToList();
+                
 
                 if (a.Any() == true) {
                     //Existing user name
+
                     ViewData["Exist"] = Name;
                     return View("register");
                 } else {
+
                     User newUser = new User();
                     Stock newStock = new Stock();
                     newUser.Name = Name;
@@ -35,10 +41,9 @@ namespace EnergyTrade.Controllers {
                     db.Users.Add(newUser);
                     newStock.User = newUser;
                     db.Stocks.Add(newStock);
-
                     Session["logged_in"] = Name;
-                    
-                    
+                    Response.Write(Session["logged_in"]);
+
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Market");
@@ -50,19 +55,25 @@ namespace EnergyTrade.Controllers {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string Name, string password, string password2) {
+        public ActionResult Login(string Name, string password, string password2) 
+        {
             EnergyContext db = new EnergyContext();
             ViewData["Exist"] = null;
-            if (!string.IsNullOrEmpty((string)Session["logged_in"])) {
-                
+            if (!string.IsNullOrEmpty((string)Session["logged_in"])) 
+            {
+                RedirectToAction("Index", "Market");
             }
-            if (!string.IsNullOrEmpty(Name)) {
+            if (!string.IsNullOrEmpty(Name)) 
+            {
+                
                 var a = db.Users.Where(x => x.Name == Name || x.Password == password).ToList();
-                if (a.Any() == true) {
-                    //Existing user name
+                if (a.Any() == true) 
+                {
                     Session["logged_in"] = Name;
+                    Response.Write(Session["logged_in"]);
                     return RedirectToAction("Index", "Market");
-                } else {
+                } else 
+                {
                     ViewData["NotFound"] = "Username or password is incorrect";
                     return View("Login");
                 }
@@ -70,7 +81,8 @@ namespace EnergyTrade.Controllers {
             return View("login");
         }
         
-        public ActionResult Proba() {
+        public ActionResult Proba() 
+        {
             return View();
         }
     }

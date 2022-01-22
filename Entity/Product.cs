@@ -9,7 +9,8 @@ namespace Csaba.Entity {
         public string Name { get; set; }
         public int Size { get; set; }
         public int Coffein { get; set; }
-        public int sugar { get; set; }
+        public int Sugar { get; set; }
+        public byte[] Image { get; set; }
 
 
 

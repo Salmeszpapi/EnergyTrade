@@ -1,0 +1,22 @@
+﻿<table border="1"
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Sugar</th>
+    </tr>
+@foreach (var item in Model)
+{
+    <tr>
+    <td>@item.Product.Id</td>
+    <td>@item.Product.Name</td>
+    <td>@item.Product.Size</td>
+    <td>@item.Product.Sugar</td>
+    </tr>
+        //<img src= "@Url.Content(item.Product.Image)" alt="Image" />
+                
+
+}
+
+</table>
+

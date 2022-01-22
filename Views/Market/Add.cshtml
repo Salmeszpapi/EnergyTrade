@@ -1,20 +1,30 @@
-﻿
-@{
-    ViewBag.Title = "Add";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Uploader</title>
+</head>
+<body>
+    <form action="add" method="post" enctype="multipart/form-data">
+    </form>
+    <h1>Uploaded Image</h1>
 
-<form action="add" method="post">
-    <h2>Add new item</h2>
+</body>
+</html>
+@using (Html.BeginForm("add", "Market", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     <label> Choose your Energy drink from our database</label>
-    <input type="text" name="Brand" placeholder="Brand" required autofocus /></br>
+    <input type="text" name="Brand" placeholder="Brand" required autofocus /><br>
     <label>Name of Energy</label>
-    <input type="text" name="Name" placeholder="Name" required autofocus /></br>
+    <input type="text" name="Name" placeholder="Name" required autofocus /><br>
     <label>Size of the bottle</label>
-    <input type="text" name="Size" placeholder="Size" required autofocus /></br>
+    <input type="text" name="Size" placeholder="Size" required autofocus /><br>
     <label>Does it contain coffein? How much?</label>
-    <input type="text" name="Coffein" placeholder="Coffein" required autofocus /></br>
+    <input type="text" name="Coffein" placeholder="Coffein" required autofocus/><br>
     <label>Does it contain Sugar? How much?</label>
-    <input type="text" name="Sugar" placeholder="Sugar" required autofocus /></br>
-    <button type="submit"> Submit </button> 
-</form>
+    <input type="text" name="Sugar" placeholder="Sugar" required autofocus/><br>
+    <legend>Upload your photo</legend>
+    <label for="Image">Image</label>
 
+    <input type="file" name="file" />
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+}

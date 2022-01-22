@@ -36,5 +36,6 @@ namespace SSM.Common.Services.DataContext {
             modelBuilder.Configurations.Add(new StockItemConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
         }
+
     }
 }
