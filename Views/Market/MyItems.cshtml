@@ -4,20 +4,21 @@
         <th>Name</th>
         <th>Size</th>
         <th>Sugar</th>
+        <th>Image</th>
     </tr>
 @foreach (var item in Model)
 {
+    //<img src= "@Url.Content(item.Product.Image)" alt="Image" />
+    var base64 = Convert.ToBase64String(item.Product.Image);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
     <tr>
     <td>@item.Product.Id</td>
     <td>@item.Product.Name</td>
     <td>@item.Product.Size</td>
     <td>@item.Product.Sugar</td>
+    <td><img src="@imgSrc" width="200" height="200"/></td>
+    <td><button type="submit"name="@item.Id">Show</button></td>
     </tr>
-
-        //<img src= "@Url.Content(item.Product.Image)" alt="Image" />
-                
-
 }
-
 </table>
 

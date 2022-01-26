@@ -1,4 +1,5 @@
 ﻿using Csaba.Entity;
+using EnergyTrade.Models;
 using SSM.Common.Services.DataContext;
 using System;
 using System.Collections.Generic;
@@ -15,18 +16,56 @@ namespace EnergyTrade.Controllers
         // GET: Market
         public ActionResult Index()
         {
-            
-            
-            return View();
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            EnergyContext db = new EnergyContext();
+            var products = db.Products.ToList();
+            //List<Product> MyProducts = new List<Product>();
+            //var Product = db.StockItems.Find(item.Id);
+            //db.Entry(Product)
+            //    .Reference(u => u.Product)
+            //    .Load();
+
+            //MyProducts.Add(Product);
+
+            return View(products);
+        }
+        public ActionResult Item(int Id)
+        {
+            return Content(Id.ToString());
+        }
+        public ActionResult Logout()
+        {
+            Session["logged_in"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult Profile()
+        {
+            Profile neprofile = new Profile()
+            {
+                id = 7,
+                Name = "kiki",
+                password = "kikipw"
+            };
+            return View(neprofile);
         }
         public ActionResult Add() 
         {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
         [HttpPost]
         public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar, HttpPostedFileBase file)
         {
-            Session["logged_in"] = "kiki";
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             EnergyContext db = new EnergyContext(); //set db
             StockItem newStockitem = new StockItem(); //new stockitem
             byte[] byteImg = ConverToBytes(file);
@@ -95,18 +134,22 @@ namespace EnergyTrade.Controllers
         }
         public ActionResult MyItems()
         {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             List<StockItem> MyProducts = new List<StockItem>();
             //var brandid = db.Products.Where(x =>x.Brand.Id == 24).ToList().FirstOrDefault();
             //string imreBase64Data = Convert.ToBase64String(brandid.Image);
             //string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
             //ViewBag.ImageData = imgDataURL;
             EnergyContext db = new EnergyContext();
-            var user = db.Users.Where(x => x.Name == "kiki").ToList().FirstOrDefault();
-            var stock = db.Stocks.Where(x => x.Id == user.Id).ToList().FirstOrDefault();
+            var username = Convert.ToString(Session["logged_in"]);
+            var user = db.Users.Where(x => x.Name == username).ToList().FirstOrDefault();
+            var stock = db.Stocks.Where(x => x.User.Id == user.Id).ToList().FirstOrDefault();
             var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
             //var result = StockItems[0]
             List<int> ItemIds = new List<int>();
-            int count = 0;
             //List<Product> ExistingProducts = new List<Product>();
             foreach(var item in StockItems)
             {
