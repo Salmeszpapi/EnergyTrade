@@ -1,6 +1,6 @@
 ﻿@model EnergyTrade.Models.Profile
 
-<h1>@Model.password</h1>
+<h1>@Model.Name</h1>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container bootstrap snippets bootdey">
@@ -20,15 +20,9 @@
                         <div class="col-md-3">
                             <div class="user-info-left">
                                 <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Picture">
-                                <h2>Jonathan Smith <i class="fa fa-circle green-font online-icon"></i><sup class="sr-only">online</sup></h2>
+                                <h2>@Model.Name <i class="fa fa-circle green-font online-icon"></i><sup class="sr-only">online</sup></h2>
                                 <div class="contact">
                                     <a href="#" class="btn btn-block btn-danger"><i class="fa fa-envelope-o"></i> Send Message</a>
-                                    <a href="#" class="btn btn-block btn-success"><i class="fa fa-book"></i> Add To Contact</a>
-                                    <ul class="list-inline social">
-                                        <li><a href="#" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
-                                        <li><a href="#" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
-                                        <li><a href="#" title="Google Plus"><i class="fa fa-google-plus-square"></i></a></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>

@@ -10,6 +10,5 @@ namespace EnergyTrade.Models
         public int id { get; set; }
         public string Name { get; set; }
         public string password { get; set; }
-
     }
 }
