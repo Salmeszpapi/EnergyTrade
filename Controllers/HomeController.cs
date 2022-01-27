@@ -75,7 +75,7 @@ namespace EnergyTrade.Controllers {
             if (!string.IsNullOrEmpty(Name)) 
             {
                 
-                var a = db.Users.Where(x => x.Name == Name || x.Password == password).ToList().FirstOrDefault();
+                var a = db.Users.Where(x => x.Name == Name && x.Password == password).ToList().FirstOrDefault();
                 if (a != null) 
                 {
                     Session["logged_in"] = Name;
