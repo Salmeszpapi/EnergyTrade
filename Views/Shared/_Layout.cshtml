@@ -6,6 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @{
+        var pageName = ViewContext.RouteData.Values["controller"].ToString();
+    }
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -15,18 +18,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                @Html.ActionLink("EnergyTrade", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Market")</li>
+                        <li>@Html.ActionLink("Add", "Add", "Market")</li>
+                        <li>@Html.ActionLink("MyItems", "MyItems", "Market")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Market")</li>
+                        <li>@Html.ActionLink("Profile", "Profile", "Market")</li>
+                    }
                 </ul>
             </div>
+
         </div>
+
     </div>
+    <div style="background-color:forestgreen">
+        <h1 style="text-align:center">@pageName</h1>
+        <div>
+
+        </div>
+
+    </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
