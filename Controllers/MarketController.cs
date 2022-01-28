@@ -43,14 +43,32 @@ namespace EnergyTrade.Controllers
         }
         public ActionResult Profile()
         {
+            EnergyContext db = new EnergyContext();
+            int UserId = Convert.ToInt32(Session["logged_Id"]);
+            var person = db.Users.Where(x => x.Id == UserId).ToList().LastOrDefault();
             Profile neprofile = new Profile()
             {
-                id = 7,
-                Name = "kiki",
-                password = "kikipw"
+                Name = person.Name,
+                DataJoined = person.DateJoined,
+                LastLoginDate = person.LastLoginDate,           
             };
             return View(neprofile);
         }
+        [HttpPost]
+        public ActionResult Profile(int id)
+        {
+            EnergyContext db = new EnergyContext();
+            int UserId = Convert.ToInt32(Session["logged_Id"]);
+            var person = db.Users.Where(x => x.Id == UserId).LastOrDefault();
+            Profile neprofile = new Profile()
+            {
+                Name = person.Name,
+                DataJoined = person.DateJoined,
+                LastLoginDate = person.LastLoginDate,
+            };
+            return View(neprofile);
+        }
+
         public ActionResult Add() 
         {
             if (string.IsNullOrEmpty((string)Session["logged_in"]))

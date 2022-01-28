@@ -20,7 +20,15 @@
                         <div class="col-md-3">
                             <div class="user-info-left">
                                 <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Picture">
-                                <h2>@Model.Name <i class="fa fa-circle green-font online-icon"></i><sup class="sr-only">online</sup></h2>
+                                @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
+                                {
+
+                                    <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:green">(online)</i></h2>
+                                } else
+                                {
+                                    <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:red">(offline)</i></h2>
+                                }
+
                                 <div class="contact">
                                     <a href="#" class="btn btn-block btn-danger"><i class="fa fa-envelope-o"></i> Send Message</a>
                                 </div>
@@ -31,45 +39,32 @@
                                 <div class="basic-info">
                                     <h3><i class="fa fa-square"></i> Basic Information</h3>
                                     <p class="data-row">
-                                        <span class="data-name">Username</span>
-                                        <span class="data-value">jonasmith</span>
+                                        <span class="data-name">Username: </span>
+                                        <span class="data-value">@Model.Name</span>
                                     </p>
                                     <p class="data-row">
-                                        <span class="data-name">Birth Date</span>
-                                        <span class="data-value">Nov 20, 1988</span>
-                                    </p>
-                                    <p class="data-row">
-                                        <span class="data-name">Gender</span>
-                                        <span class="data-value">Male</span>
-                                    </p>
-                                    <p class="data-row">
-                                        <span class="data-name">Website</span>
-                                        <span class="data-value"><a href="#">www.jonasmith.com</a></span>
-                                    </p>
-                                    <p class="data-row">
-                                        <span class="data-name">Last Login</span>
-                                        <span class="data-value">2 hours ago</span>
-                                    </p>
-                                    <p class="data-row">
-                                        <span class="data-name">Date Joined</span>
-                                        <span class="data-value">Feb 22, 2012</span>
-                                    </p>
-                                </div>
-                                <div class="contact_info">
-                                    <h3><i class="fa fa-square"></i> Contact Information</h3>
-                                    <p class="data-row">
-                                        <span class="data-name">Email</span>
-                                        <span class="data-value">me@jonasmith.com</span>
-                                    </p>
-                                    <p class="data-row">
-                                        <span class="data-name">Phone</span>
-                                        <span class="data-value">(1800) 221 - 876543</span>
-                                    </p>
-                                    <p class="data-row">
-                                        <span class="data-name">Address</span>
-                                        <span class="data-value">Riverside City 66, 80123 Denver<br>Colorado</span>
-                                    </p>
-                                </div>
+                                        <span class="data-name">Last Login: </span>
+                                        @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
+                                        {
+                                            <span class="data-value">online</span>
+
+                                        } else
+                                        {
+                                            if ((DateTime.Now - Model.LastLoginDate).Ticks < 60 * 1000000)
+                                            {
+                                                <span class="data-value">@((DateTime.Now - Model.LastLoginDate).Hours) Hours ago</span>
+
+                                            } else
+                                            {
+                                                <span class="data-value">@((DateTime.Now - Model.LastLoginDate).Minutes) Minutes ago</span>
+                                            }
+
+                                        }
+<p class="data-row">
+                                                    <span class="data-name">Date Joined</span>
+                                                    <span class="data-value">Feb 22, 2012</span>
+                                                </p>
+</div>
                                 <div class="about">
                                     <h3><i class="fa fa-square"></i> About Me</h3>
                                     <p>Dramatically facilitate proactive solutions whereas professional intellectual capital. Holisticly utilize competitive e-markets through intermandated meta-services. Objectively.</p>

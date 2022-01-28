@@ -27,11 +27,11 @@
                 <ul class="nav navbar-nav">
                     @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
                     {
-                        <li>@Html.ActionLink("Home", "Index", "Market")</li>
                         <li>@Html.ActionLink("Add", "Add", "Market")</li>
                         <li>@Html.ActionLink("MyItems", "MyItems", "Market")</li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Market")</li>
                         <li>@Html.ActionLink("Profile", "Profile", "Market")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Market")</li>
+
                     }
                 </ul>
             </div>

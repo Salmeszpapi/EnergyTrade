@@ -78,12 +78,21 @@ namespace EnergyTrade.Controllers {
                 var a = db.Users.Where(x => x.Name == Name && x.Password == password).ToList().FirstOrDefault();
                 if (a != null) 
                 {
+                    DateTime localDate = DateTime.Now;
                     Session["logged_in"] = Name;
-                    Session["Legged_Id"] = a.Id;
+                    Session["logged_Id"] = a.Id;
                     Response.Write(Session["logged_in"]);
+                    User result = (from p in db.Users
+                                   where p.Id == a.Id
+                                   select p).SingleOrDefault();
+
+                    result.LastLoginDate = localDate;
+
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Market");
                 } else 
                 {
+                    
                     ViewData["NotFound"] = "Username or password is incorrect";
                     return View("Login");
                 }
