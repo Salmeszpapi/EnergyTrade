@@ -47,6 +47,10 @@ namespace EnergyTrade.Controllers
             
             return View(products);
         }
+        public ActionResult Test()
+        {
+            return View();
+        }
         public ActionResult Item(int Id)
         {
             return Content(Id.ToString());
