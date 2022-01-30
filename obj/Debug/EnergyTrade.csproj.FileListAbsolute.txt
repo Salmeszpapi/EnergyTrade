@@ -390,10 +390,10 @@ C:\Users\salma\source\repos\EnergyTradeN\bin\System.Web.WebPages.Razor.xml
 C:\Users\salma\source\repos\EnergyTradeN\bin\Newtonsoft.Json.xml
 C:\Users\salma\source\repos\EnergyTradeN\bin\Antlr3.Runtime.pdb
 C:\Users\salma\source\repos\EnergyTradeN\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.AssemblyReference.cache
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.Migrations.CreatePost.resources
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.GenerateResource.cache
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.CoreCompileInputs.cache
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.CopyComplete
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.dll
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.pdb
+C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.AssemblyReference.cache

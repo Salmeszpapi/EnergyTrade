@@ -3,6 +3,7 @@ using EnergyTrade.Models;
 using SSM.Common.Services.DataContext;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,16 +22,28 @@ namespace EnergyTrade.Controllers
                 return RedirectToAction("Login", "Home");
             }
             EnergyContext db = new EnergyContext();
-            var products = db.Products.ToList();
-            //List<Product> MyProducts = new List<Product>();
-            //var Product = db.StockItems.Find(item.Id);
-            //db.Entry(Product)
-            //    .Reference(u => u.Product)
-            //    .Load();
+            List<Stock> stock = new List<Stock>();
+            //List<StockItem> stockitem = new List<StockItem>();
+            var adat = db.Products.Include("Brand").ToList();
+            var mystock = db.Stocks.Include("User").Where(x => x.User.Id == 1);
+            var asdsa = db.StockItems.ToList();
+            List<ProductWithUser> productWithU = new List<ProductWithUser>();
 
-            //MyProducts.Add(Product);
-
-            return View(products);
+            foreach(var x in adat)
+            {
+                ProductWithUser ProductWithUser = new ProductWithUser()
+                {
+                    Brand = x.Brand.Name,
+                    Coffein = x.Coffein,
+                    Image = x.Image,
+                    Name = x.Name,
+                    Size = x.Size,
+                    Sugar = x.Size,
+                    Username = 1, // ide meg hozza tenni a User ID-t,  akie a product 
+                };
+            }
+            
+            return View(adat);
         }
         public ActionResult Item(int Id)
         {
@@ -50,7 +63,8 @@ namespace EnergyTrade.Controllers
             {
                 Name = person.Name,
                 DataJoined = person.DateJoined,
-                LastLoginDate = person.LastLoginDate,           
+                LastLoginDate = person.LastLoginDate,
+                OwnProfile = true,
             };
             return View(neprofile);
         }
@@ -65,6 +79,7 @@ namespace EnergyTrade.Controllers
                 Name = person.Name,
                 DataJoined = person.DateJoined,
                 LastLoginDate = person.LastLoginDate,
+                OwnProfile=false,
             };
             return View(neprofile);
         }

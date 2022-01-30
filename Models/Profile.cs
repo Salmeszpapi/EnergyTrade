@@ -12,5 +12,7 @@ namespace EnergyTrade.Models
         public string password { get; set; }
         public DateTime LastLoginDate { get; set; }
         public DateTime DataJoined { get; set; }
+        public bool OwnProfile { get; set; }
+
     }
 }
