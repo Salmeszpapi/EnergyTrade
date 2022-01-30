@@ -22,28 +22,30 @@ namespace EnergyTrade.Controllers
                 return RedirectToAction("Login", "Home");
             }
             EnergyContext db = new EnergyContext();
-            List<Stock> stock = new List<Stock>();
-            //List<StockItem> stockitem = new List<StockItem>();
-            var adat = db.Products.Include("Brand").ToList();
-            var mystock = db.Stocks.Include("User").Where(x => x.User.Id == 1);
-            var asdsa = db.StockItems.ToList();
-            List<ProductWithUser> productWithU = new List<ProductWithUser>();
+            List<ProductWithUser> products = new List<ProductWithUser>();
+            int UserId = Convert.ToInt32(Session["logged_Id"]);
+            var stockItems = db.StockItems
+                .Include("Stock")
+                .Include("Product")
+                .ToList();
 
-            foreach(var x in adat)
+            foreach (var x in stockItems)
             {
-                ProductWithUser ProductWithUser = new ProductWithUser()
+                ProductWithUser productWithUser = new ProductWithUser()
                 {
-                    Brand = x.Brand.Name,
-                    Coffein = x.Coffein,
-                    Image = x.Image,
-                    Name = x.Name,
-                    Size = x.Size,
-                    Sugar = x.Size,
-                    Username = 1, // ide meg hozza tenni a User ID-t,  akie a product 
+                    //Brand needed here 
+                    Coffein = x.Product.Coffein,
+                    Image = x.Product.Image,
+                    Name = x.Product.Name,
+                    Size = x.Product.Size,
+                    Sugar = x.Product.Size,
+                    UserID = x.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
                 };
+                products.Add(productWithUser);
+                //save object 
             }
             
-            return View(adat);
+            return View(products);
         }
         public ActionResult Item(int Id)
         {
@@ -59,6 +61,11 @@ namespace EnergyTrade.Controllers
             EnergyContext db = new EnergyContext();
             int UserId = Convert.ToInt32(Session["logged_Id"]);
             var person = db.Users.Where(x => x.Id == UserId).ToList().LastOrDefault();
+            bool myprofile = (Convert.ToInt32(Session["logged_Id"]) == 1) ? true : false;
+            ProductWithUser productWithUser = new ProductWithUser() {
+                
+            };
+            
             Profile neprofile = new Profile()
             {
                 Name = person.Name,
@@ -68,12 +75,16 @@ namespace EnergyTrade.Controllers
             };
             return View(neprofile);
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult Profile(int id)
         {
             EnergyContext db = new EnergyContext();
-            int UserId = Convert.ToInt32(Session["logged_Id"]);
-            var person = db.Users.Where(x => x.Id == UserId).LastOrDefault();
+            bool myprofile;
+            myprofile = (Convert.ToInt32(Session["logged_Id"]) == id) ? true : false; 
+            var person = db.Users.Where(x => x.Id == id).ToList().LastOrDefault();
+            var stock = db.Stocks.Where(x => x.User.Id == id).ToList().FirstOrDefault();
+            var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
+
             Profile neprofile = new Profile()
             {
                 Name = person.Name,
@@ -201,7 +212,7 @@ namespace EnergyTrade.Controllers
 
             return View(MyProducts);
         }
-        public static byte[] ConverToBytes(HttpPostedFileBase file)
+        public byte[] ConverToBytes(HttpPostedFileBase file)
         {
             var length = file.InputStream.Length; //Length: 103050706
             byte[] fileData = null;
@@ -210,6 +221,9 @@ namespace EnergyTrade.Controllers
                 fileData = binaryReader.ReadBytes(file.ContentLength);
             }
             return fileData;
+        }
+        public void StillOnline() { 
+            
         }
     }
 }

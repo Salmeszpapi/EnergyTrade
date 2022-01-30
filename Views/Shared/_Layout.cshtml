@@ -16,6 +16,10 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("EnergyTrade", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
@@ -26,6 +30,7 @@
                         <li>@Html.ActionLink("Add", "Add", "Market")</li>
                         <li>@Html.ActionLink("MyItems", "MyItems", "Market")</li>
                         <li>@Html.ActionLink("Profile", "Profile", "Market")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Market")</li>
                     }
                 </ul>
             </div>

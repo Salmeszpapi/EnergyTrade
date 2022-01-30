@@ -12,9 +12,9 @@ namespace EnergyTrade.Controllers {
             if (!string.IsNullOrEmpty((string)Session["logged_in"])) {
                 return RedirectToAction("Index", "Market");
             }
-            Session["logged_in"] = "kiki";
-            Session["Logged_Id"] = 1;
-            return RedirectToAction("Index", "Market");
+            //Session["logged_in"] = "kiki";
+            //Session["Logged_Id"] = 1;
+            //return RedirectToAction("Index", "Market");
             return View("register");
 
             //return RedirectToAction("Index", "Market");
@@ -52,7 +52,7 @@ namespace EnergyTrade.Controllers {
                     Session["logged_in"] = Name;
                     Session["Logged_Id"] = newUser.Id;
                     Response.Write(Session["logged_in"]);
-
+                    Response.Write(Session["Logged_Id"]);
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Market");
