@@ -1,4 +1,8 @@
 ﻿@model EnergyTrade.Models.Profile
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
 
 <h1>@Model.Name</h1>
 
@@ -34,7 +38,7 @@
                                         <a href="#" class="btn btn-block btn-danger"><i class="fa fa-envelope-o"></i> Send Message</a>
                                     </div>
                                 }
-                                
+
                             </div>
                         </div>
                         <div class="col-md-9">
@@ -63,11 +67,11 @@
                                             }
 
                                         }
-                                            <p class="data-row">
-                                            <span class="data-name">Date Joined</span>
-                                            <span class="data-value">@Model.DataJoined</span>
-                                        </p>
-                                    </div>
+                                    <p class="data-row">
+                                        <span class="data-name">Date Joined</span>
+                                        <span class="data-value">@Model.DataJoined</span>
+                                    </p>
+                                </div>
                                 <div class="about">
                                     <h3><i class="fa fa-square"></i> About Me</h3>
                                     <p>Dramatically facilitate proactive solutions whereas professional intellectual capital. Holisticly utilize competitive e-markets through intermandated meta-services. Objectively.</p>

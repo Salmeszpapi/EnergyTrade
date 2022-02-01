@@ -1,4 +1,9 @@
-﻿<form action="/Home/Login" method="post">
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<form action="/Home/Login" method="post">
     <h2>Login</h2>
     <label for="username">Username</label>
     <input type="text" id="Name" name="Name" placeholder="Username" required autofocus /><br />

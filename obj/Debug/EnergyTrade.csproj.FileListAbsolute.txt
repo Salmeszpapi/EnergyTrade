@@ -257,7 +257,6 @@ C:\Users\salma\Source\Repos\EnergyTrade\bin\System.Web.WebPages.Razor.xml
 C:\Users\salma\Source\Repos\EnergyTrade\bin\Newtonsoft.Json.xml
 C:\Users\salma\Source\Repos\EnergyTrade\bin\Antlr3.Runtime.pdb
 C:\Users\salma\Source\Repos\EnergyTrade\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\salma\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.csproj.AssemblyReference.cache
 C:\Users\salma\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.Migrations.CreatePost.resources
 C:\Users\salma\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.csproj.GenerateResource.cache
 C:\Users\salma\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.csproj.CoreCompileInputs.cache
