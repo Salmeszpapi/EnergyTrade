@@ -1,5 +1,6 @@
 ﻿using Csaba.Entity;
 using SSM.Common.Services.DataContext;
+using SSM.Common.Services.Security;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace EnergyTrade.Controllers {
             if (!string.IsNullOrEmpty((string)Session["logged_in"])) {
                 return RedirectToAction("Index", "Market");
             }
-            Session["logged_in"] = "kiki";
-            Session["Logged_Id"] = 1;
-            return RedirectToAction("Index", "Market");
+            //Session["logged_in"] = "kiki";
+            //Session["Logged_Id"] = 1;
+            //return RedirectToAction("Index", "Market");
             return View("register");
 
             //return RedirectToAction("Index", "Market");
@@ -25,7 +26,7 @@ namespace EnergyTrade.Controllers {
         [HttpPost]
         public ActionResult Register(string Name, string password, string password2) {
             EnergyContext db = new EnergyContext();
-            
+            string hashedPassword = HashService.HashData(password);
             ViewData["Exist"] = null;
             if (!string.IsNullOrEmpty(Name)) {
                 var a = db.Users.Where(x => x.Name == Name).ToList();
@@ -43,7 +44,7 @@ namespace EnergyTrade.Controllers {
                     User newUser = new User();
                     Stock newStock = new Stock();
                     newUser.Name = Name;
-                    newUser.Password = password;
+                    newUser.Password = hashedPassword;
                     newUser.LastLoginDate = localDate;
                     newUser.DateJoined = localDate;
                     db.Users.Add(newUser);
@@ -66,6 +67,7 @@ namespace EnergyTrade.Controllers {
         [HttpPost]
         public ActionResult Login(string Name, string password, string password2) 
         {
+            
             EnergyContext db = new EnergyContext();
             ViewData["Exist"] = null;
             if (!string.IsNullOrEmpty((string)Session["logged_in"])) 

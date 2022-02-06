@@ -28,18 +28,22 @@ namespace EnergyTrade.Controllers
                 .Include("Stock")
                 .Include("Product")
                 .ToList();
+            var products1 = db.Products
+                .Include("Brand")
+                .ToList();
 
-            foreach (var x in stockItems)
+            foreach (var si in stockItems)
             {
+                var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
                 ProductWithUser productWithUser = new ProductWithUser()
                 {
-                    //Brand needed here 
-                    Coffein = x.Product.Coffein,
-                    Image = x.Product.Image,
-                    Name = x.Product.Name,
-                    Size = x.Product.Size,
-                    Sugar = x.Product.Size,
-                    UserID = x.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
+                    Brand = brand.Brand,
+                    Coffein = si.Product.Coffein,
+                    Image = si.Product.Image,
+                    Name = si.Product.Name,
+                    Size = si.Product.Size,
+                    Sugar = si.Product.Size,
+                    UserID = si.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
                 };
                 products.Add(productWithUser);
                 //save object 
@@ -60,27 +64,8 @@ namespace EnergyTrade.Controllers
             Session["logged_in"] = null;
             return RedirectToAction("Index", "Home");
         }
-        public ActionResult Profile()
-        {
-            EnergyContext db = new EnergyContext();
-            int UserId = Convert.ToInt32(Session["logged_Id"]);
-            var person = db.Users.Where(x => x.Id == UserId).ToList().LastOrDefault();
-            bool myprofile = (Convert.ToInt32(Session["logged_Id"]) == 1) ? true : false;
-            ProductWithUser productWithUser = new ProductWithUser() {
-                
-            };
-            
-            Profile neprofile = new Profile()
-            {
-                Name = person.Name,
-                DataJoined = person.DateJoined,
-                LastLoginDate = person.LastLoginDate,
-                OwnProfile = true,
-            };
-            return View(neprofile);
-        }
         [HttpGet]
-        public ActionResult Profile(int id)
+        public ActionResult UserProfile(int id)
         {
             EnergyContext db = new EnergyContext();
             bool myprofile;
@@ -225,9 +210,6 @@ namespace EnergyTrade.Controllers
                 fileData = binaryReader.ReadBytes(file.ContentLength);
             }
             return fileData;
-        }
-        public void StillOnline() { 
-            
         }
     }
 }

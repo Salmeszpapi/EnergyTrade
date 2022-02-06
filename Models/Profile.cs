@@ -15,4 +15,5 @@ namespace EnergyTrade.Models
         public bool OwnProfile { get; set; }
 
     }
+
 }

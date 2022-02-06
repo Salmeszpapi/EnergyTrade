@@ -396,3 +396,4 @@ C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.CopyComple
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.dll
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.pdb
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.AssemblyReference.cache
+C:\Users\salma\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.csproj.AssemblyReference.cache

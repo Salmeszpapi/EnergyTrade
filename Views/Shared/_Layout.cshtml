@@ -10,6 +10,7 @@
         var pageName = ViewContext.RouteData.Values["controller"].ToString();
     }
 
+
 </head>
 <body>
 
@@ -46,38 +47,53 @@
             </button>
             @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
             {
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        My store
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/Market/Myitems">Myitems</a></li>
-                        <li><a class="dropdown-item" href="/Market/Profile">Profile</a></li>
-                        <li><a class="dropdown-item" href="/Market/Add">Add Item</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/Market/Logout">Logout</a></li>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                My store
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/Market/Myitems">Myitems</a></li>
+                                <li><a class="dropdown-item" href="/Market/UserProfile?id=@Session["logged_Id"]">Profile</a></li>
+                                <li><a class="dropdown-item" href="/Market/Add">Add Item</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/Market/Logout">Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            } else
+            {
+                <form class="d-flex">
+                    <div class="row">
+                        <div class="col d-md-flex">
+                            <a class="btn btn-info btn-primary btn-lg btn-block" href="/Home/Register">Register</a>
+                            <a> </a>
+                            <a class="btn btn-dark btn-primary btn-lg btn-block" href="/Home/login">Login</a>
+                        </div>
+                    </div>
+                </form>
+
+
             }
-            
+
         </div>
     </nav>
 
-
+    <div class="d-flex justify-content-center">
+        <h1>Welcome on EnergyTrade</h1>
+    </div>
 
     <div class="container body-content">
         @RenderBody()
