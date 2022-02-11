@@ -1,33 +1,24 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    <script src="@Styles.Render("~/Content/owncss.css")"></script>
 
 }
-<div>
+<div class="d-flex justify-content-center align-items-center mt-5"> <button class="btn btn-dark">OUR CATEGORIES</button> </div>
+<div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
+    <div class="row mt-2 g-4">
+        @foreach (var item in Model)
+        {
+            //var base64 = Convert.ToBase64String(item.Image);
+            //var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-
-    <table class="table" border="1">
-        <tr>
-            <th>Brand</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Sugar</th>
-            <th>Coffein</th>
-            <th>Image</th>
-            <th>Profile</th>
-            @foreach (var item in Model)
-            {
-                //<img src= "@Url.Content(item.Product.Image)" alt="Image" />
-                var base64 = Convert.ToBase64String(item.Image);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-            <tr>
-                <td>@item.Brand.Name</td>
-                <td>@item.Name</td>
-                <td>@item.Size</td>
-                <td>@item.Sugar</td>
-                <td>@item.Coffein</td>
-                <td><img src="@imgSrc" width="200" height="200" /></td>
-                <td><a href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">click here</a></td>
-            </tr>
-        }
-        </table>
+            <div class="col-md-3">
+                <div class="card p-1">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                        <div class="flex-column lh-1 imagename"> <span>@item.Brand.Name</span> <span>@item.Name</span> </div>
+                        @*<div> <img src="@imgSrc" height="100" width="100" /> </div>*@
+                        <a href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">click here</a>
+                    </div>
+                </div>
+            </div>
+    }
     </div>

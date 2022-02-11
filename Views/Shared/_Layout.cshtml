@@ -3,14 +3,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>  
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/owncss.css")
+    @Styles.Render("~/Content/test.css")
     @Scripts.Render("~/bundles/modernizr")
+
     @{
         var pageName = ViewContext.RouteData.Values["controller"].ToString();
     }
 
-
+    <script src="@Styles.Render("~/Content/owncss.css")"></script>
 </head>
 <body>
 
@@ -91,7 +94,7 @@
         </div>
     </nav>
 
-    
+
 
     <div class="container body-content">
         @RenderBody()
@@ -103,6 +106,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/ownscripts.js") 
     @Scripts.Render("~/Scripts/bootstrap.min.js")
 
 
