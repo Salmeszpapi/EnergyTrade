@@ -13,7 +13,7 @@ namespace EnergyTrade.Models
         public int Size { get; set; }
         public int Coffein { get; set; }
         public int Sugar { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         public int UserID { get; set; }
 
     }

@@ -18,6 +18,7 @@ namespace SSM.Common.Services.DataContext {
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<StockItem> StockItems { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
 
         public EnergyContext() : base("Data Source=localhost;Initial Catalog=Energy;Integrated Security=true;") {
@@ -35,6 +36,7 @@ namespace SSM.Common.Services.DataContext {
             modelBuilder.Configurations.Add(new StockConfiguration());
             modelBuilder.Configurations.Add(new StockItemConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new MessageConfiguration());
         }
 
     }

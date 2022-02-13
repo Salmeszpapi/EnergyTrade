@@ -215,17 +215,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
     <Compile Include="Controllers\TradeController.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
     <Compile Include="Entity\Brand.cs" />
     <Compile Include="Entity\EntityConfiguration\BrandConfiguration.cs" />
+    <Compile Include="Entity\EntityConfiguration\MessageConfiguration.cs" />
     <Compile Include="Entity\EntityConfiguration\ProductConfiguration.cs" />
     <Compile Include="Entity\EntityConfiguration\StockConfiguration.cs" />
     <Compile Include="Entity\EntityConfiguration\StockItemConfiguration.cs" />
     <Compile Include="Entity\EntityConfiguration\UserConfiguration.cs" />
+    <Compile Include="Entity\Message.cs" />
     <Compile Include="Entity\Product.cs" />
     <Compile Include="Entity\Stock.cs" />
     <Compile Include="Entity\Stockitem.cs" />
@@ -328,11 +330,11 @@
     <Content Include="Views\Market\Item.cshtml" />
     <Content Include="Views\Market\UserProfile.cshtml" />
     <Content Include="Views\Market\Test.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
-    <Folder Include="Views\Chat\" />
     <Folder Include="Views\Trade\" />
   </ItemGroup>
   <ItemGroup>

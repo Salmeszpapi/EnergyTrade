@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace EnergyTrade.Controllers
 {
-    public class ChatController : Controller
+    public class MessageController : Controller
     {
         // GET: Chat
         public ActionResult Index()

@@ -34,12 +34,15 @@ namespace EnergyTrade.Controllers
 
             foreach (var si in stockItems)
             {
+                var base64 = Convert.ToBase64String(si.Product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
                 var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
                 ProductWithUser productWithUser = new ProductWithUser()
                 {
                     Brand = brand.Brand,
-                    Coffein = si.Product.Coffein,
-                    Image = si.Product.Image,
+                    Coffein = si.Product.Coffein,   
+                    Image = imgSrc,
                     Name = si.Product.Name,
                     Size = si.Product.Size,
                     Sugar = si.Product.Size,
