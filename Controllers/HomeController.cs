@@ -13,10 +13,10 @@ namespace EnergyTrade.Controllers {
             if (!string.IsNullOrEmpty((string)Session["logged_in"])) {
                 return RedirectToAction("Index", "Market");
             }
-            //Session["logged_in"] = "kiki";
-            //Session["Logged_Id"] = 1;
-            //return RedirectToAction("Index", "Market");
-            return View("register");
+            Session["logged_in"] = "kiki";
+            Session["Logged_Id"] = 1;
+            return RedirectToAction("Index", "Message");
+            //return View("register");
 
             //return RedirectToAction("Index", "Market");
         }
