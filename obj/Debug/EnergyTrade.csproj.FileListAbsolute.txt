@@ -397,3 +397,16 @@ C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.dll
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.pdb
 C:\Users\salma\source\repos\EnergyTradeN\obj\Debug\EnergyTrade.csproj.AssemblyReference.cache
 C:\Users\salma\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.csproj.AssemblyReference.cache
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.Owin.dll
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.Owin.Security.dll
+C:\Users\salma\source\repos\EnergyTrade\bin\Owin.dll
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.Owin.xml
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\salma\source\repos\EnergyTrade\bin\Microsoft.Owin.Security.xml

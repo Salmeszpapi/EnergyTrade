@@ -8,7 +8,7 @@ namespace EnergyTrade.Controllers
 {
     public class MessageController : Controller
     {
-        // GET: Chat
+        // GET: Messages
         public ActionResult Index()
         {
             return View();
