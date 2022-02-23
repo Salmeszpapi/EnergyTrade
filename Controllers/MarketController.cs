@@ -40,7 +40,7 @@ namespace EnergyTrade.Controllers
                 ProductWithUser productWithUser = new ProductWithUser()
                 {
                     Brand = brand.Brand,
-                    Coffein = si.Product.Coffein,   
+                    Coffein = si.Product.Coffein,
                     Image = imgSrc,
                     Name = si.Product.Name,
                     Size = si.Product.Size,
@@ -50,7 +50,9 @@ namespace EnergyTrade.Controllers
                 products.Add(productWithUser);
                 //save object 
             }
-            
+
+
+
             return View(products);
         }
         public ActionResult Test()
@@ -71,19 +73,27 @@ namespace EnergyTrade.Controllers
         {
             EnergyContext db = new EnergyContext();
             bool myprofile;
-            myprofile = (Convert.ToInt32(Session["logged_Id"]) == id) ? true : false; 
-            var person = db.Users.Where(x => x.Id == id).ToList().LastOrDefault();
-            var stock = db.Stocks.Where(x => x.User.Id == id).ToList().FirstOrDefault();
-            var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
+            myprofile = (Convert.ToInt32(Session["logged_Id"]) == id) ? true : false;
+            try{
+                var person = db.Users.Where(x => x.Id == id).ToList().LastOrDefault();
+                var stock = db.Stocks.Where(x => x.User.Id == id).ToList().FirstOrDefault();
+                var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
 
-            Profile neprofile = new Profile()
+                Profile neprofile = new Profile()
+                {
+                    Name = person.Name,
+                    DataJoined = person.DateJoined,
+                    LastLoginDate = person.LastLoginDate,
+                    OwnProfile = false,
+                };
+                return View(neprofile);
+            }
+            catch(Exception e)
             {
-                Name = person.Name,
-                DataJoined = person.DateJoined,
-                LastLoginDate = person.LastLoginDate,
-                OwnProfile=false,
-            };
-            return View(neprofile);
+                return Content("Profile is not found please relog to the web application");
+            }
+            
+            
         }
 
         public ActionResult Add() 
@@ -107,9 +117,9 @@ namespace EnergyTrade.Controllers
 
             var fileName = Path.GetFileName(file.FileName);
             var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-            if (path != null )
+            if (path != null)
             {
-                
+
                 file.SaveAs(path);
                 var brandid = db.Brands.Where(x => x.Name == Brand).ToList().FirstOrDefault();
                 Product newProduct = new Product();
@@ -119,21 +129,15 @@ namespace EnergyTrade.Controllers
                     {
                         Name = Brand,
                     };  // if needed new brand
-                    newProduct.Name = Name;
                     newProduct.Brand = newBrand;
-                    newProduct.Size = Convert.ToInt32(Size);
-                    newProduct.Coffein = Convert.ToInt32(Coffein);
-                    newProduct.Sugar = Convert.ToInt32(Sugar);
-                    newProduct.Image = byteImg;
-                } else
-                {
-                    newProduct.Name = Name;
-                    newProduct.Brand = brandid;
-                    newProduct.Size = Convert.ToInt32(Size);
-                    newProduct.Coffein = Convert.ToInt32(Coffein);
-                    newProduct.Sugar = Convert.ToInt32(Sugar);
-                    newProduct.Image = byteImg;
                 }
+                newProduct.Name = Name;
+                newProduct.Brand = brandid;
+                newProduct.Size = Convert.ToInt32(Size);
+                newProduct.Coffein = Convert.ToInt32(Coffein);
+                newProduct.Sugar = Convert.ToInt32(Sugar);
+                newProduct.Image = byteImg;
+
                 newStockitem.Product = newProduct;
                 newStockitem.Count = 1;
 
@@ -147,11 +151,12 @@ namespace EnergyTrade.Controllers
                 db.SaveChanges();
                 return View();
 
-            } else
+            }
+            else
             {
                 // img = null
             }
-            
+
             return View();
 
         }

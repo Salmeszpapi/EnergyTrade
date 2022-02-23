@@ -13,10 +13,10 @@ namespace EnergyTrade.Controllers {
             if (!string.IsNullOrEmpty((string)Session["logged_in"])) {
                 return RedirectToAction("Index", "Market");
             }
-            Session["logged_in"] = "kiki";
-            Session["Logged_Id"] = 1;
-            return RedirectToAction("Index", "Message");
-            //return View("register");
+            //Session["logged_in"] = "kiki";
+            //Session["Logged_Id"] = 1;
+            //return RedirectToAction("Index", "Message");
+            return View("register");
 
             //return RedirectToAction("Index", "Market");
         }
@@ -30,16 +30,12 @@ namespace EnergyTrade.Controllers {
             ViewData["Exist"] = null;
             if (!string.IsNullOrEmpty(Name)) {
                 var a = db.Users.Where(x => x.Name == Name).ToList();
-                
-
-                if (a.Any() == true) {
+                if (a.Any()) {
                     //Existing user name
-
                     ViewData["Exist"] = Name;
                     return View("register");
                 } else {
                     DateTime localDate = DateTime.Now;
-
 
                     User newUser = new User();
                     Stock newStock = new Stock();
@@ -50,13 +46,12 @@ namespace EnergyTrade.Controllers {
                     db.Users.Add(newUser);
                     newStock.User = newUser;
                     db.Stocks.Add(newStock);
+
+                    db.SaveChanges();
                     Session["logged_in"] = Name;
                     Session["Logged_Id"] = newUser.Id;
-                    Response.Write(Session["logged_in"]);
-                    Response.Write(Session["Logged_Id"]);
-                    db.SaveChanges();
-
                     return RedirectToAction("Index", "Market");
+
                 }
             }
             return View();
@@ -76,8 +71,8 @@ namespace EnergyTrade.Controllers {
             }
             if (!string.IsNullOrEmpty(Name)) 
             {
-                
-                var a = db.Users.Where(x => x.Name == Name && x.Password == password).ToList().FirstOrDefault();
+                string hashedPassword = HashService.HashData(password);
+                var a = db.Users.Where(x => x.Name == Name && x.Password == hashedPassword).ToList().FirstOrDefault();
                 if (a != null) 
                 {
                     DateTime localDate = DateTime.Now;
