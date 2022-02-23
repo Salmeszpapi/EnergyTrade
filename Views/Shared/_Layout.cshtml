@@ -4,13 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
 
-
+    @Styles.Render("~/Content/bootstrap.css")
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/test.css")
-    @Scripts.Render("~/bundles/modernizr")
 
 
     @{
@@ -19,42 +21,63 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:burlywood;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/home/Index">EnegyTrade</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
+    {
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/home/Index">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
-            {
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                My store
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/Market/Myitems">Myitems</a></li>
-                                <li><a class="dropdown-item" href="/Market/UserProfile?id=@Session["logged_Id"]">Profile</a></li>
-                                <li><a class="dropdown-item" href="/Market/Add">Add Item</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/Market/Logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            } else
-            {
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/Market/Myitems">Myitems</a>
+                            <a class="dropdown-item" href="/Market/UserProfile?id=@Session["logged_Id"]">Profile</a>
+                            <a class="dropdown-item" href="/Market/Add">Add item</a>
+                            <a class="dropdown-item" href="/Market/UserProfile?id=@Session["logged_Id"]">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/Market/Logout">Logout</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+            </div>
+
+
+        </nav>
+    }
+    else
+    {
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/home/Index">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav mr-auto">
+                   
+                </ul>
                 <form class="d-flex">
                     <div class="row">
                         <div class="col d-md-flex">
@@ -64,9 +87,61 @@
                         </div>
                     </div>
                 </form>
-            }
-        </div>
-    </nav>
+
+            </div>
+
+
+        </nav>
+    }
+    @*<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:burlywood;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home/Index">EnegyTrade</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
+                {
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    My store
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Market/Myitems">Myitems</a></li>
+                                    <li><a class="dropdown-item" href="/Market/UserProfile?id=@Session["logged_Id"]">Profile</a></li>
+                                    <li><a class="dropdown-item" href="/Market/Add">Add Item</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Market/Logout">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <form class="d-flex">
+                        <div class="row">
+                            <div class="col d-md-flex">
+                                <a class="btn btn-info btn-primary btn-lg btn-block" href="/Home/Register">Register</a>
+                                <a> </a>
+                                <a class="btn btn-dark btn-primary btn-lg btn-block" href="/Home/login">Login</a>
+                            </div>
+                        </div>
+                    </form>
+                }
+            </div>
+        </nav>*@
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -74,8 +149,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    @Scripts.Render("~/Scripts/ownscripts.js")
-    @Scripts.Render("~/bundles/jquery")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

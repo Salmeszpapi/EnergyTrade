@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container bootstrap snippets bootdey">
     <div class="row">
         <div class="main-content">
@@ -11,12 +10,11 @@
                 <!-- PROFILE TAB CONTENT -->
                 <div class="tab-pane profile active" id="profile-tab">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="user-info-left">
                                 <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Picture">
                                 @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
                                 {
-
                                     <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:green">(online)</i></h2>
                                 } else
                                 {
@@ -31,7 +29,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-6">
                             <div class="user-info-right">
                                 <div class="basic-info">
                                     <h3><i class="fa fa-square"></i> Basic Information</h3>
