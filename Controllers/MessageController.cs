@@ -13,5 +13,17 @@ namespace EnergyTrade.Controllers
         {
             return View();
         }
+        public ActionResult Tes()
+        {
+            return View();
+        }
+        public ActionResult Test()
+        {
+            return View();
+        }
+        public ActionResult Chat()  
+        {
+            return View();
+        }
     }
 }
