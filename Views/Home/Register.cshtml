@@ -7,22 +7,6 @@
 {
     <h3>@ViewData["Exist"] nevű felhasználó már foglalt</h3>
 }
-
-@*<div>
-        <form action="/Home/Register" method="post">
-            <h2>Register</h2>
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="Name" name="Name" placeholder="Username" required autofocus /><br>
-                <label for="username">Password</label>
-                <input type="text" id="password" name="password" placeholder="Password" required autofocus />
-                <input type="text" id="password2" name="password2" placeholder="password again" required autofocus /><br>
-                <button type="submit"> Register </button> or
-                <a href="/Home/login">Login</a>
-            </div>
-
-        </form>
-    </div>*@
 <div class="d-flex justify-content-center">
     <h1>Register form </h1>
 </div>
@@ -34,11 +18,11 @@
             <div id="emailHelp" class="form-text"></div>
         </div>
         <label for="inputPassword5" class="form-label">Password</label>
-        <input class="form-control" type="text" id="password" name="password" placeholder="Password" required autofocus />
+        <input class="form-control" type="password" id="password" name="password" placeholder="Password" required autofocus />
         <div id="passwordHelpBlock" class="form-text">
         </div>
         <label for="inputPassword5" class="form-label">Password Again</label>
-        <input class="form-control" type="text" id="password2" name="password2" placeholder="password again" required autofocus /><br>
+        <input class="form-control" type="password" id="password2" name="password2" placeholder="password again" required autofocus /><br>
         <div id="passwordHelpBlock" class="form-text">
         </div>
 </div>

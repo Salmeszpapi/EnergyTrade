@@ -31,7 +31,6 @@ namespace EnergyTrade.Controllers
             var products1 = db.Products
                 .Include("Brand")
                 .ToList();
-
             foreach (var si in stockItems)
             {
                 var base64 = Convert.ToBase64String(si.Product.Image);

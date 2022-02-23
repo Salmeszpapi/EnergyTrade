@@ -11,18 +11,34 @@ namespace EnergyTrade.Controllers
         // GET: Messages
         public ActionResult Index()
         {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
         public ActionResult Tes()
         {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
         public ActionResult Test()
         {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
         public ActionResult Chat()  
         {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
     }
