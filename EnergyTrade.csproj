@@ -276,6 +276,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MyStyleSheet.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -291,6 +292,8 @@
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.3.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -378,12 +381,11 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\proba.cshtml" />
-    <Content Include="Views\Market\Index.cshtml" />
+    <Content Include="Views\Market\Index2.cshtml" />
     <Content Include="Views\Market\Add.cshtml" />
     <Content Include="Views\Market\upload.cshtml" />
     <Content Include="Views\Market\MyItems.cshtml" />
     <Content Include="Views\Market\Logout.cshtml" />
-    <Content Include="Views\Market\Item.cshtml" />
     <Content Include="Views\Market\UserProfile.cshtml" />
     <Content Include="Views\Market\Test.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
@@ -391,11 +393,13 @@
     <Content Include="Views\Message\Tes.cshtml" />
     <Content Include="Views\Message\Demo.cshtml" />
     <Content Include="Views\Message\Chat.cshtml" />
+    <Content Include="Views\Market\Index.cshtml" />
+    <Content Include="Views\Market\Kepfel.cshtml" />
+    <Content Include="Views\Market\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
-    <Folder Include="Views\Messages\" />
     <Folder Include="Views\Trade\" />
   </ItemGroup>
   <ItemGroup>

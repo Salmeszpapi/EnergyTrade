@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Kepfel";
+}
+
+<h2>Kepfel</h2>
+
+@using (Html.BeginForm("Kepfel", "Market", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Upload Image:</label>
+    <input type="file" name="file" id="file" style="width: 100%;" />
+
+    <input type="submit" value="Upload" class="submit" />
+
+}

@@ -15,6 +15,7 @@ namespace EnergyTrade.Models
         public int Sugar { get; set; }
         public string Image { get; set; }
         public int UserID { get; set; }
+        public List<Brand> Brands { get; set; }
 
     }
 }

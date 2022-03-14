@@ -41,5 +41,13 @@ namespace EnergyTrade.Controllers
             }
             return View();
         }
+        public ActionResult Demo()
+        {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            return View();
+        }
     }
 }

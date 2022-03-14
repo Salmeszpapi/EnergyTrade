@@ -1,19 +1,48 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="d-flex justify-content-center align-items-center mt-5"> <button class="btn btn-dark">OUR CATEGORIES</button> </div>
-<div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
-<div class="row mt-2 g-4">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-3">
-            <div class="card p-1">
-                <div class="d-flex justify-content-between align-items-center p-2">
-                    <div class="flex-column lh-1 imagename"> <span>@item.Brand.Name</span> <span>@item.Name</span> </div>
-                    <div> <img src="@item.Image" height="100" width="100" /> </div>
-                    @*<a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">click here</a>*@
-                </div>
+
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="col-md-3">
+        <div class="card p-1">
+            <center><h5>Choose filter for brands</h5></center>
+        </div>
+        <div class="card p-1">
+            <select class="btn btn-secondary dropdown-toggle" name="cars" id="cars">
+                @foreach (var item in Model)
+                {
+                if (@item.Brand.Checked == true)
+                {
+                    <option class="btn btn-secondary dropdown-toggle" value="@item.Brand.Name">@item.Brand.Name</option>
+                }
+
+                    
+                }
+            </select>
+        </div>
+        <div class="card p-1">
+            <button class="btn btn-dark">Search</button>
             </div>
         </div>
-    }
-</div>
+    </div>
+    <div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
+    <div class="row mt-2 g-4">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="card p-1">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                        <div class="flex-column lh-1 imagename"> <span>@item.Name</span></div>
+                        <img id="myImg" src="@item.Image" height="100" width="100" />
+                        <div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">Item</a></div>
+
+
+                    </div>
+                    <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">Profile</a></div></center>
+                    
+                </div>
+            </div>
+        }
+    </div>
+

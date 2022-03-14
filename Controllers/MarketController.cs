@@ -37,6 +37,8 @@ namespace EnergyTrade.Controllers
                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
                 var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
+
+
                 ProductWithUser productWithUser = new ProductWithUser()
                 {
                     Brand = brand.Brand,
@@ -46,13 +48,12 @@ namespace EnergyTrade.Controllers
                     Size = si.Product.Size,
                     Sugar = si.Product.Size,
                     UserID = si.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
+                    
                 };
                 products.Add(productWithUser);
+
                 //save object 
             }
-
-
-
             return View(products);
         }
         public ActionResult Test()
@@ -105,7 +106,7 @@ namespace EnergyTrade.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar, HttpPostedFileBase file)
+        public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar, HttpPostedFileBase ImageFile)
         {
             if (string.IsNullOrEmpty((string)Session["logged_in"]))
             {
@@ -113,14 +114,24 @@ namespace EnergyTrade.Controllers
             }
             EnergyContext db = new EnergyContext(); //set db
             StockItem newStockitem = new StockItem(); //new stockitem
-            byte[] byteImg = ConverToBytes(file);
+            byte[] byteImg = ConverToBytes(ImageFile);
 
-            var fileName = Path.GetFileName(file.FileName);
+            var fileName = Path.GetFileName(ImageFile.FileName);
             var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+            //ImageFile.SaveAs("~/Images/");
+            ImageFile.SaveAs(path);
+            if (ImageFile.ContentLength > 0)
+            {
+                var filename = Path.GetFileName(ImageFile.FileName);
+
+                System.Drawing.Image sourceimage =
+                    System.Drawing.Image.FromStream(ImageFile.InputStream);
+            }
+            
             if (path != null)
             {
 
-                file.SaveAs(path);
+                ImageFile.SaveAs(path);
                 var brandid = db.Brands.Where(x => x.Name == Brand).ToList().FirstOrDefault();
                 Product newProduct = new Product();
                 if (brandid == null)
@@ -128,11 +139,17 @@ namespace EnergyTrade.Controllers
                     Brand newBrand = new Brand()
                     {
                         Name = Brand,
+                        Checked = false,
+                        Image = byteImg,
                     };  // if needed new brand
                     newProduct.Brand = newBrand;
+                    db.Brands.Add(newBrand);
+                }
+                else
+                {
+                    newProduct.Brand = brandid;
                 }
                 newProduct.Name = Name;
-                newProduct.Brand = brandid;
                 newProduct.Size = Convert.ToInt32(Size);
                 newProduct.Coffein = Convert.ToInt32(Coffein);
                 newProduct.Sugar = Convert.ToInt32(Sugar);
@@ -185,7 +202,11 @@ namespace EnergyTrade.Controllers
             //ViewBag.ImageData = imgDataURL;
             EnergyContext db = new EnergyContext();
             var username = Convert.ToString(Session["logged_in"]);
+            
+            
             var user = db.Users.Where(x => x.Name == username).ToList().FirstOrDefault();
+
+
             var stock = db.Stocks.Where(x => x.User.Id == user.Id).ToList().FirstOrDefault();
             var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
             //var result = StockItems[0]
@@ -208,6 +229,28 @@ namespace EnergyTrade.Controllers
 
             return View(MyProducts);
         }
+        public ActionResult Kepfel(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/images/"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                // save the image path path to the database or you can send image 
+                // directly to database
+                // in-case if you want to store byte[] ie. for DB
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+                }
+
+            }
+            return View();
+        }
         public byte[] ConverToBytes(HttpPostedFileBase file)
         {
             var length = file.InputStream.Length; //Length: 103050706
@@ -217,6 +260,10 @@ namespace EnergyTrade.Controllers
                 fileData = binaryReader.ReadBytes(file.ContentLength);
             }
             return fileData;
+        }
+        public ActionResult Product()
+        {
+            return View();
         }
     }
 }

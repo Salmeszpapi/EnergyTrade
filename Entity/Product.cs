@@ -11,5 +11,6 @@ namespace Csaba.Entity {
         public int Coffein { get; set; }
         public int Sugar { get; set; }
         public byte[] Image { get; set; }
+        public int Seen { get; set; }
     }
 }
