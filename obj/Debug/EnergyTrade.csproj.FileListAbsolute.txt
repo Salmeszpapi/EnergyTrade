@@ -556,3 +556,4 @@ C:\Users\salma\Source\Repos\EnergyTradeeeee\obj\Debug\EnergyTrade.csproj.CoreCom
 C:\Users\salma\Source\Repos\EnergyTradeeeee\obj\Debug\EnergyTrade.csproj.CopyComplete
 C:\Users\salma\Source\Repos\EnergyTradeeeee\obj\Debug\EnergyTrade.dll
 C:\Users\salma\Source\Repos\EnergyTradeeeee\obj\Debug\EnergyTrade.pdb
+C:\Users\salma\source\repos\EnergyTradeeeee\bin\System.Linq.Dynamic.dll

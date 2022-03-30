@@ -1,4 +1,5 @@
 ﻿@model EnergyTrade.Models.Profile
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -16,7 +17,8 @@
                                 @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
                                 {
                                     <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:green">(online)</i></h2>
-                                } else
+                                }
+                                else
                                 {
                                     <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:red">(offline)</i></h2>
                                 }
@@ -42,16 +44,27 @@
                                         @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
                                         {
                                             <span class="data-value">online</span>
-
-                                        } else
+                                        }
+                                        else
                                         {
-                                            if ((DateTime.Now - Model.LastLoginDate).Ticks < 60 * 1000000)
+                                            if ((DateTime.Now - Model.LastLoginDate).TotalDays >= 1)
                                             {
-                                                <span class="data-value">@((DateTime.Now - Model.LastLoginDate).Hours) Hours ago</span>
+                                                <span class="data-value">
+                                                    @Convert.ToInt32(((DateTime.Now - Model.LastLoginDate).TotalDays)) days and
+                                                    @Convert.ToInt32(((DateTime.Now - Model.LastLoginDate).Hours)) hours ago
+                                                </span>
+                                            }
+                                            else if ((DateTime.Now - Model.LastLoginDate).Hours >= 1)
+                                            {
+                                                <span class="data-value">
+                                                    @Convert.ToInt32((DateTime.Now - Model.LastLoginDate).TotalHours) Hours and
+                                                    @Convert.ToInt32((DateTime.Now - Model.LastLoginDate).TotalMinutes) Minutes ago
+                                                </span>
 
-                                            } else
+                                            }
+                                            else
                                             {
-                                                <span class="data-value">@((DateTime.Now - Model.LastLoginDate).Minutes) Minutes ago</span>
+                                                <span class="data-value">@Convert.ToInt32((DateTime.Now - Model.LastLoginDate).TotalMinutes) Minutes ago</span>
                                             }
 
                                         }
@@ -238,4 +251,20 @@
 
 
     </div>
+</div>
+<div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
+<div class="row mt-2 g-4">
+    @foreach (var item in ViewBag.MyProducts)
+    {
+        <div class="col-md-3">
+            <div class="card p-1">
+                <center><div class="flex-column lh-1 imagename"> <span>@item.Product.Name</span></div></center>
+                <div class="d-flex justify-content-center align-items-center p-1">
+                    <img id="myImg" src="@item.Image" height="100" width="100" />
+                </div>
+                <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.Product.UserID)">User profile</a></div></center>
+                <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.Product.Id)">Item details</a></div></center>
+            </div>
+        </div>
+    }
 </div>

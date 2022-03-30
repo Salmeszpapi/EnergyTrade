@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Product";
 }
 
@@ -11,8 +10,8 @@
             <h3 class="card-title">Rounded Chair</h3>
             <h6 class="card-subtitle">globe type chair for rest</h6>
             <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-6">
-                    <div class="white-box text-center"><img src="https://via.placeholder.com/430x600/00CED1/000000" class="img-responsive"></div>
+                <div class="col-lg-5 col-md-5 col-sm-6" style="min-width:380px">
+                    <div class="white-box text-center"><img src="@ViewBag.ImgSrc" class="img-responsive" style="max-width: 380px; max-height: 600px"></div>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6">
                     <h4 class="box-title mt-5">Product description</h4>
@@ -24,7 +23,7 @@
                         <i class="fa fa-shopping-cart"></i>
                     </button>
                     <button class="btn btn-primary btn-rounded">Buy Now</button>
-                    <h3 class="box-title mt-5">Key Highlights</h3>
+                    <h3 class="box-title mt-5">Total watched: @Model.Seen</h3>
                     <ul class="list-unstyled">
                         <li><i class="fa fa-check text-success"></i>Sturdy structure</li>
                         <li><i class="fa fa-check text-success"></i>Designed to foster easy portability</li>
@@ -38,63 +37,19 @@
                             <tbody>
                                 <tr>
                                     <td width="390">Brand</td>
-                                    <td>Stellar</td>
+                                    <td>@Model.Brand.Name</td>
                                 </tr>
                                 <tr>
-                                    <td>Delivery Condition</td>
-                                    <td>Knock Down</td>
+                                    <td>Coffein</td>
+                                    <td>@Model.Coffein</td>
                                 </tr>
                                 <tr>
-                                    <td>Seat Lock Included</td>
-                                    <td>Yes</td>
+                                    <td>Sugar</td>
+                                    <td>@Model.Sugar</td>
                                 </tr>
                                 <tr>
-                                    <td>Type</td>
-                                    <td>Office Chair</td>
-                                </tr>
-                                <tr>
-                                    <td>Style</td>
-                                    <td>Contemporary&amp;Modern</td>
-                                </tr>
-                                <tr>
-                                    <td>Wheels Included</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>Upholstery Included</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>Upholstery Type</td>
-                                    <td>Cushion</td>
-                                </tr>
-                                <tr>
-                                    <td>Head Support</td>
-                                    <td>No</td>
-                                </tr>
-                                <tr>
-                                    <td>Suitable For</td>
-                                    <td>Study&amp;Home Office</td>
-                                </tr>
-                                <tr>
-                                    <td>Adjustable Height</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>Model Number</td>
-                                    <td>F01020701-00HT744A06</td>
-                                </tr>
-                                <tr>
-                                    <td>Armrest Included</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>Care Instructions</td>
-                                    <td>Handle With Care,Keep In Dry Place,Do Not Apply Any Chemical For Cleaning.</td>
-                                </tr>
-                                <tr>
-                                    <td>Finish Type</td>
-                                    <td>Matte</td>
+                                    <td>Size</td>
+                                    <td>@Model.Size</td>
                                 </tr>
                             </tbody>
                         </table>

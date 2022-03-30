@@ -1,154 +1,210 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <script src="~/Scripts/jquery-3.6.0.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
-
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <title> Responsive Admin Dashboard | Redesign</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    @Styles.Render("~/Content/style.css")
     @Styles.Render("~/Content/bootstrap.css")
-    @Scripts.Render("~/Scripts/bootstrap.js")
-    @Scripts.Render("~/Scripts/bootstrap.min.js")
-    @Styles.Render("~/Content/css")
-
-
     @{
-        var pageName = ViewContext.RouteData.Values["controller"].ToString();
+        var pageName = ViewContext.RouteData.Values["action"].ToString();
     }
-
 </head>
 <body>
-    @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
-    {
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/home/Index">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <div class="containerx">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Market")">
+                        <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+                        <span class="title">EnergyTrade</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Market")">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("MyItems", "Market")">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="title">My product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Add", "Market")">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="title">Add new product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Message")">
+                        <span class="icon"><ion-icon name="chatbox-outline"></ion-icon></span>
+                        <span class="title">Messsage</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Settings", "Home")">
+                        <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                        <span class="title">Setting</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Logout", "Market")">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Sing Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!--main -->
 
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Market/Myitems">Myitems</a>
-                            <a class="dropdown-item" href="/Market/UserProfile?id=@Session["logged_Id"]">Profile</a>
-                            <a class="dropdown-item" href="/Market/Add">Add item</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/Market/Logout">Logout</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <!-- search -->
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Search Here">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+                <!-- userImg -->
+                <div class="user">
+                    <img src="user.jpg">
+                </div>
             </div>
 
-
-        </nav>
-    }
-    else
-    {
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/home/Index">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul class="navbar-nav mr-auto">
-                   
-                </ul>
-                <form class="d-flex">
-                    <div class="row">
-                        <div class="col d-md-flex">
-                            <a class="btn btn-info btn-primary btn-lg btn-block" href="/Home/Register">Register</a>
-                            <a> </a>
-                            <a class="btn btn-dark btn-primary btn-lg btn-block" href="/Home/login">Login</a>
-                        </div>
+            <!-- cards -->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">1,504</div>
+                        <div class="cardName">Daily Views</div>
                     </div>
-                </form>
-
-            </div>
-
-
-        </nav>
-    }
-    @*<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:burlywood;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/home/Index">EnegyTrade</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @if (!string.IsNullOrEmpty((string)Session["logged_in"]))
-                {
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    My store
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/Market/Myitems">Myitems</a></li>
-                                    <li><a class="dropdown-item" href="/Market/UserProfile?id=@Session["logged_Id"]">Profile</a></li>
-                                    <li><a class="dropdown-item" href="/Market/Add">Add Item</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="/Market/Logout">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                    <div class="iconBx">
+                        <ion-icon name="eye-outline"></ion-icon>
                     </div>
-                }
-                else
-                {
-                    <form class="d-flex">
-                        <div class="row">
-                            <div class="col d-md-flex">
-                                <a class="btn btn-info btn-primary btn-lg btn-block" href="/Home/Register">Register</a>
-                                <a> </a>
-                                <a class="btn btn-dark btn-primary btn-lg btn-block" href="/Home/login">Login</a>
-                            </div>
-                        </div>
-                    </form>
-                }
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">80</div>
+                        <div class="cardName">Sales</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">284</div>
+                        <div class="cardName">Comments</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">$7,842</div>
+                        <div class="cardName">Earning</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
             </div>
-        </nav>*@
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+            <div class="details">
+                <!-- order details list -->
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>@pageName</h2>
+                        <a href="#" class="btn">Views All</a>
+                    </div>
+                    <div class="container body-content">
+                        @RenderBody()
+                        <hr />
+                        <footer>
+                            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                        </footer>
+                    </div>
+
+                    @RenderSection("scripts", required: false)
+                </div>
+
+                <!-- New Customers -->
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Recent Customers</h2>
+                    </div>
+                    <table>
+                        <tr>
+                            <td width="60px"><div class="imgBx"><img src="img1.jpg"></div></td>
+                            <td><h4>David<br><span>Italy</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td><div class="imgBx"><img src="img2.jpg"></div></td>
+                            <td><h4>Muhammad<br><span>India</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td><div class="imgBx"><img src="img3.jpg"></div></td>
+                            <td><h4>Amelia<br><span>France</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td><div class="imgBx"><img src="img4.jpg"></div></td>
+                            <td><h4>Olivia<br><span>USA</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td><div class="imgBx"><img src="img5.jpg"></div></td>
+                            <td><h4>Amit<br><span>Japan</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td><div class="imgBx"><img src="img6.jpg"></div></td>
+                            <td><h4>Ashraf<br><span>India</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td><div class="imgBx"><img src="img7.jpg"></div></td>
+                            <td><h4>Diana<br><span>Malaysia</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td><div class="imgBx"><img src="img8.jpg"></div></td>
+                            <td><h4>Amit<br><span>India</span></h4></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        // MenuToggle
+        let toggle = document.querySelector('.toggle');
+        let navigation = document.querySelector('.navigation');
+        let main = document.querySelector('.main');
 
-    @RenderSection("scripts", required: false)
+        toggle.onclick = function () {
+            navigation.classList.toggle('active');
+            main.classList.toggle('active');
+        }
+
+        // add hovered class in selected list item
+        let list = document.querySelectorAll('.navigation li');
+        function activeLink() {
+            list.forEach((item) =>
+                item.classList.remove('hovered'));
+            this.classList.add('hovered');
+        }
+        list.forEach((item) =>
+            item.addEventListener('mouseover', activeLink));
+    </script>
 </body>
 </html>
+
+
+

@@ -46,6 +46,7 @@ namespace EnergyTrade.Controllers {
                     db.Users.Add(newUser);
                     newStock.User = newUser;
                     db.Stocks.Add(newStock);
+                    
 
                     db.SaveChanges();
                     Session["logged_in"] = Name;
@@ -97,6 +98,10 @@ namespace EnergyTrade.Controllers {
             return View("login");
         }
         public ActionResult Proba() 
+        {
+            return View();
+        }
+        public ActionResult Settings()
         {
             return View();
         }

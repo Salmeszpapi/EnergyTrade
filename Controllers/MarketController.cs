@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq.Dynamic;
+using EnergyTrade.Services;
 
 namespace EnergyTrade.Controllers
 {
@@ -23,7 +25,6 @@ namespace EnergyTrade.Controllers
             }
             EnergyContext db = new EnergyContext();
             List<ProductWithUser> products = new List<ProductWithUser>();
-            int UserId = Convert.ToInt32(Session["logged_Id"]);
             var stockItems = db.StockItems
                 .Include("Stock")
                 .Include("Product")
@@ -48,13 +49,58 @@ namespace EnergyTrade.Controllers
                     Size = si.Product.Size,
                     Sugar = si.Product.Size,
                     UserID = si.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
-                    
+                    ProductID = si.Product.Id,
+
                 };
                 products.Add(productWithUser);
 
                 //save object 
             }
             return View(products);
+        }
+        public ActionResult SearchResoult(string Brands, string Size, string Sugar)
+        {
+            EnergyContext db = new EnergyContext();
+            List<Product> products = new List<Product>();
+
+            int sugarOption = Sugar == "Withoutsugar" ? 0 : 1;
+            string request= "";
+            if (Size != "allSizes")
+            {
+                if (request.Length > 0)
+                {
+                    request += "&& ";
+                }
+                request += $"Size == {Size} ";
+            }
+            if (Sugar != "allSugar")
+            {
+                if (request.Length > 0)
+                {
+                    request += "&& ";
+                }
+                if (sugarOption == 0)
+                {
+                    request += $"Sugar == {sugarOption} ";
+                }
+                else
+                {
+                    request += $"Sugar > 0 ";
+                }
+            }
+            if(request.Length == 0)
+            {
+                var products1 = db.Products
+                    .ToList();
+                return View(products1);
+            }
+            else
+            {
+                var products1 = db.Products
+                    .Include("Brand")
+                    .Where(request).ToList();
+                return View(products1);
+            }
         }
         public ActionResult Test()
         {
@@ -73,13 +119,43 @@ namespace EnergyTrade.Controllers
         public ActionResult UserProfile(int id)
         {
             EnergyContext db = new EnergyContext();
+            List<ProductWithUser> products = new List<ProductWithUser>();
+            ///////////////////////////////////////// get user products
+            var stockItems = db.StockItems
+                .Include("Stock")
+                .Include("Product")
+                .ToList();
+            var products1 = db.Products
+                .Include("Brand")
+                .ToList();
+            foreach (var si in stockItems)
+            {
+                var base64 = Convert.ToBase64String(si.Product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
+
+
+                ProductWithUser productWithUser = new ProductWithUser()
+                {
+                    Brand = brand.Brand,
+                    Coffein = si.Product.Coffein,
+                    Image = imgSrc,
+                    Name = si.Product.Name,
+                    Size = si.Product.Size,
+                    Sugar = si.Product.Size,
+                    UserID = si.Stock.Id,
+                    ProductID = si.Product.Id,
+
+                };
+                
+                products.Add(productWithUser);
+            }
+            //////////////////////////////////////// user account properties
             bool myprofile;
             myprofile = (Convert.ToInt32(Session["logged_Id"]) == id) ? true : false;
             try{
                 var person = db.Users.Where(x => x.Id == id).ToList().LastOrDefault();
-                var stock = db.Stocks.Where(x => x.User.Id == id).ToList().FirstOrDefault();
-                var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
-
                 Profile neprofile = new Profile()
                 {
                     Name = person.Name,
@@ -91,10 +167,8 @@ namespace EnergyTrade.Controllers
             }
             catch(Exception e)
             {
-                return Content("Profile is not found please relog to the web application");
+                return Content("Profile is not found please relog to the web application" + e);
             }
-            
-            
         }
 
         public ActionResult Add() 
@@ -112,26 +186,11 @@ namespace EnergyTrade.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            EnergyContext db = new EnergyContext(); //set db
-            StockItem newStockitem = new StockItem(); //new stockitem
-            byte[] byteImg = ConverToBytes(ImageFile);
-
-            var fileName = Path.GetFileName(ImageFile.FileName);
-            var path = Path.Combine(Server.MapPath("~/Images/"), fileName);
-            //ImageFile.SaveAs("~/Images/");
-            ImageFile.SaveAs(path);
-            if (ImageFile.ContentLength > 0)
+            if (ImageFile != null)
             {
-                var filename = Path.GetFileName(ImageFile.FileName);
-
-                System.Drawing.Image sourceimage =
-                    System.Drawing.Image.FromStream(ImageFile.InputStream);
-            }
-            
-            if (path != null)
-            {
-
-                ImageFile.SaveAs(path);
+                EnergyContext db = new EnergyContext(); //set db
+                StockItem newStockitem = new StockItem(); //new stockitem
+                byte[] byteImg = MyMethods.ConverToBytes(ImageFile);
                 var brandid = db.Brands.Where(x => x.Name == Brand).ToList().FirstOrDefault();
                 Product newProduct = new Product();
                 if (brandid == null)
@@ -251,17 +310,27 @@ namespace EnergyTrade.Controllers
             }
             return View();
         }
-        public byte[] ConverToBytes(HttpPostedFileBase file)
+        [HttpGet]
+        public ActionResult Product(int Id)
         {
-            var length = file.InputStream.Length; //Length: 103050706
-            byte[] fileData = null;
-            using (var binaryReader = new BinaryReader(file.InputStream))
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
             {
-                fileData = binaryReader.ReadBytes(file.ContentLength);
+                return RedirectToAction("Login", "Home");
             }
-            return fileData;
+            EnergyContext db = new EnergyContext();
+            var productInfo = db.Products
+                .Include("Brand")
+                .FirstOrDefault(x => x.Id == Id);
+
+            var base64 = Convert.ToBase64String(productInfo.Image);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+            ViewBag.ImgSrc = imgSrc;
+            productInfo.Seen++;
+            db.SaveChanges();
+            return View(productInfo);
         }
-        public ActionResult Product()
+        public ActionResult EditProfile()
         {
             return View();
         }
