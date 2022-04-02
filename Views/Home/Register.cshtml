@@ -7,38 +7,144 @@
 {
     <h3>@ViewData["Exist"] nevű felhasználó már foglalt</h3>
 }
-<div class="d-flex justify-content-center">
-    <h1>Register form </h1>
-</div>
-<div class="d-flex justify-content-center">
-    <form style="width:500px" action="/Home/Register" method="post">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Username</label>
-            <input class="form-control" type="text" id="Name" name="Name" placeholder="Username" required autofocus />
-            <div id="emailHelp" class="form-text"></div>
-        </div>
-        <label for="inputPassword5" class="form-label">Password</label>
-        <input class="form-control" type="password" id="password" name="password" placeholder="Password" required autofocus />
-        <div id="passwordHelpBlock" class="form-text">
-        </div>
-        <label for="inputPassword5" class="form-label">Password Again</label>
-        <input class="form-control" type="password" id="password2" name="password2" placeholder="password again" required autofocus /><br>
-        <div id="passwordHelpBlock" class="form-text">
-        </div>
-</div>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3>Register</h3>
+                <div class="d-flex justify-content-end social_icon">
+                    <span><i class="fab fa-facebook-square"></i></span>
+                    <span><i class="fab fa-google-plus-square"></i></span>
+                    <span><i class="fab fa-twitter-square"></i></span>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="/Home/Register" method="post">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><ion-icon name="person-outline"></ion-icon></span>
+                        </div>
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="username">
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><ion-icon name="settings-outline"></ion-icon></span>
+                        </div>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="password">
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><ion-icon name="settings-outline"></ion-icon></span>
+                        </div>
+                        <input type="password" id="password2" name="password2" class="form-control" placeholder="password again">
+                    </div>
+                    <div class="row align-items-center remember">
+                        <input type="checkbox">Remember Me
+                    </div>
+                    <div class="form-group">
+                        <a href="/Home/Login" class="btn float-left login_btn">Sign In</a>
+                        <input type="submit" value="Register" class="btn float-right login_btn">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
 
-<div class="d-flex justify-content-center">
+                </div>
 
-    <div class="row">
-        <div class="col d-md-flex">
-            <button type="submit" class="btn btn-primary">Register</button>
-            <h3> </h3>
-
-            </form>
+            </div>
         </div>
     </div>
 </div>
+<style>
+    /* Made with love by Mutiullah Samim*/
 
+    @@import url('https://fonts.googleapis.com/css?family=Numans');
 
+    html, body {
+        background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+    }
 
+    .container {
+        height: 100%;
+        align-content: center;
+    }
 
+    .card {
+        height: 370px;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 400px;
+        background-color: rgba(0,0,0,0.5) !important;
+    }
+
+    .social_icon span {
+        font-size: 60px;
+        margin-left: 10px;
+        color: #FFC312;
+    }
+
+        .social_icon span:hover {
+            color: white;
+            cursor: pointer;
+        }
+
+    .card-header h3 {
+        color: white;
+    }
+
+    .social_icon {
+        position: absolute;
+        right: 20px;
+        top: -45px;
+    }
+
+    .input-group-prepend span {
+        width: 50px;
+        background-color: #FFC312;
+        color: black;
+        border: 0 !important;
+    }
+
+    input:focus {
+        outline: 0 0 0 0 !important;
+        box-shadow: 0 0 0 0 !important;
+    }
+
+    .remember {
+        color: white;
+    }
+
+        .remember input {
+            width: 20px;
+            height: 20px;
+            margin-left: 15px;
+            margin-right: 5px;
+        }
+
+    .login_btn {
+        color: black;
+        background-color: #FFC312;
+        width: 140px;
+    }
+
+        .login_btn:hover {
+            color: black;
+            background-color: white;
+        }
+
+    .links {
+        color: white;
+    }
+
+        .links a {
+            margin-left: 4px;
+        }
+</style>

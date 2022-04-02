@@ -61,7 +61,7 @@ namespace EnergyTrade.Controllers {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string Name, string password, string password2) 
+        public ActionResult Login(string Name, string password) 
         {
             
             EnergyContext db = new EnergyContext();

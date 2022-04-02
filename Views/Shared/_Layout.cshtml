@@ -12,6 +12,20 @@
     }
 </head>
 <body>
+    @if (string.IsNullOrEmpty((string)Session["logged_in"]))
+    {
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @RenderSection("scripts", required: false)
+    }
+    else
+    {
     <div class="containerx">
         <div class="navigation">
             <ul>
@@ -203,7 +217,9 @@
         list.forEach((item) =>
             item.addEventListener('mouseover', activeLink));
     </script>
-</body>
+
+}
+    </body>
 </html>
 
 
