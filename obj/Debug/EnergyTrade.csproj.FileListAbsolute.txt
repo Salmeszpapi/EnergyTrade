@@ -704,3 +704,5 @@ C:\Users\csaba\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.csproj.CoreCompile
 C:\Users\csaba\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.csproj.CopyComplete
 C:\Users\csaba\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.dll
 C:\Users\csaba\Source\Repos\EnergyTrade\obj\Debug\EnergyTrade.pdb
+C:\Users\salma\source\repos\EnergyTradeeeee\bin\Microsoft.AspNet.SignalR.Owin.dll
+C:\Users\salma\source\repos\EnergyTradeeeee\bin\Microsoft.AspNet.SignalR.Owin.xml

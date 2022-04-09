@@ -1,0 +1,142 @@
+﻿$blue: #3863A0;
+$green: #3DBE8B;
+
+/**
+ * Refactors
+ */
+.rzslider .rz-pointer {
+    background-color: $blue;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+        background-color: $green;
+
+        &:after {
+            background-color: $blue;
+        }
+    }
+}
+
+.rzslider .rz-selection {
+    background-color: darken($green, 10%);
+}
+
+.btn-primary {
+    background-color: $green !important;
+    border-color: darken($green, 10%) !important;
+
+    &.active {
+        background-color: $blue !important;
+        border-color: darken($blue, 10%) !important;
+    }
+}
+
+.btn-success {
+    background-color: $green !important;
+    border-color: darken($green, 10%) !important;
+    margin-bottom: 20px;
+}
+
+.popover {
+    .form-group {
+        padding: 10px;
+
+        label {
+            display: block;
+        }
+    }
+}
+
+/**
+ * Utilities
+ */
+.u-clickable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.u-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: solid 1px #a9a9a9;
+    background-color: white;
+    border-radius: 2px;
+    text-align: center;
+    margin-right: 10px;
+
+    .fa {
+        opacity: 0;
+        color: $green;
+        transition: all 400ms linear;
+    }
+
+    &.active {
+        .fa {
+            opacity: 1;
+        }
+    }
+}
+
+
+/**
+ * Modules
+ */
+.m-header {
+    margin-bottom: 30px;
+}
+
+.m-menu {
+    li {
+        border-bottom: solid 1px lightgray;
+        padding-bottom: 20px;
+    }
+}
+
+.sample-wrapper {
+    border: dashed 4px #A9A9A9;
+    transition: all 400ms linear;
+    counter-reset: elements;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+
+    .element {
+        color: white;
+        text-align: center;
+        flex-basis: auto;
+        width: calc(33.33% - 30px);
+        flex-grow: 0;
+
+        &:focus {
+            box-shadow: 0 0 0px 4px white, 0 0 0px 8px orange;
+            outline: none;
+        }
+
+        @for $i from 1 to 11 {
+            &:nth-of-type(#{$i}n) {
+                margin: 15px;
+
+                @if $i < 6 {
+                    $darken: $i * 5% - 5;
+                    background: darken($blue, $darken);
+                }
+                @else {
+                    $j: $i - 5;
+                    $darken: $j * 5% - 5;
+                    background: darken($green, $darken);
+                }
+            }
+        }
+
+        &:before {
+            counter-increment: elements;
+            content: counter(elements);
+            display: block;
+            margin: 5px;
+        }
+    }
+}

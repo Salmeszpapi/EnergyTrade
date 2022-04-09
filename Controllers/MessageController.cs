@@ -15,6 +15,7 @@ namespace EnergyTrade.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+
             return View();
         }
         public ActionResult Tes()

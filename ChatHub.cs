@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace EnergyTrade.Models
+namespace EnergyTrade
 {
-    public class myHub :Hub
+    public class ChatHub : Hub
     {
-        public void test(string message)
+        public void Hello()
         {
-            Clients.All.Test(message);
+            Clients.All.hello();
         }
     }
 }

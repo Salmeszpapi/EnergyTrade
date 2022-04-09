@@ -258,9 +258,11 @@ namespace EnergyTrade.Controllers
             }
             EnergyContext db = new EnergyContext();
             List<ProductWithUser> products = new List<ProductWithUser>();
+            int userId = (int)Session["logged_Id"];
             var stockItems = db.StockItems
                 .Include("Stock")
                 .Include("Product")
+                .Where(x =>x.Stock.Id == userId)
                 .ToList();
             var products1 = db.Products
                 .Include("Brand")

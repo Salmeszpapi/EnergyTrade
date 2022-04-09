@@ -57,20 +57,168 @@
         </div>
     </div>
 </form>
-    <div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
-    <div class="row mt-2 g-4">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-3">
-                <div class="card p-1">
-                    <center><div class="flex-column lh-1 imagename"> <span>@item.Name</span></div></center>
-                    <div class="d-flex justify-content-center align-items-center p-1">
-                        <img id="myImg" src="@item.Image" height="100" width="100" />
-                    </div>
-                    <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
-                    <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
-                </div>
-            </div>
+<head>
+    <title>Responsive Product Cards  designe with HTML and CSS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" contentk="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<div class="gallery">
+
+    @foreach (var item in Model)
+    {
+
+
+        <div class="contentk">
+            <img src="@item.Image">
+            <h3>@item.Name</h3>
+            <p>@item.Brand.Name</p>
+            <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
+            <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
+
+            <ul class="ulk">
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
+
+            <button class="buy-1" onclick="location.href='../Trade'">Buy Now</button>
+        </div>
+
+    }
+</div>
+<style>
+    h3 {
+        text-align: center;
+        font-size: 30px;
+        margin: 0;
+        padding-top: 10px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0;
+    }
+
+    .contentk {
+        width: 20%;
+        margin: 15px;
+        box-sizing: border-box;
+        float: left;
+        text-align: center;
+        border-radius: 20px;
+        cursor: pointer;
+        padding-top: 10px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        transition: .4s;
+        background: #f2f2f2;
+    }
+
+        .contentk:hover {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16) 0 3px 6px rgba(0,0,0,0.23);
+            transform: translate(0px, -8px);
         }
-    </div>
+
+    img {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+
+    p {
+        text-align: center;
+        color: #b2bec3;
+        padding-top: 0 8px;
+    }
+
+    h6 {
+        font-size: 26px;
+        text-align: center;
+        color: #222f3e;
+        margin: 0;
+    }
+
+    .ulk {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .li {
+        padding: 5px;
+    }
+
+    .fa {
+        font-size: 26px;
+        transition: .4s;
+    }
+
+    .checked {
+        color: #ff9f43;
+    }
+
+    .fa:hover {
+        transform: scale(1.3);
+        transition: .6s;
+    }
+
+    button {
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        width: 100%;
+        padding: 15px;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        margin-top: 5px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .buy-1 {
+        background: #2183a2;
+    }
+
+    .buy-2 {
+        background: #3b3e63;
+    }
+
+    .buy-3 {
+        background: #0b0b0b;
+    }
+
+    .buy-4 {
+        background: #ff9f43;
+    }
+
+    @@media(max-width:1000px) {
+        .contentk {
+            width: 45%;
+        }
+    }
+
+    @@media(max-width:750px) {
+        .contentk {
+            width: 100%;
+        }
+    }
+</style>
+
 
