@@ -115,9 +115,9 @@ namespace EnergyTrade.Controllers
             Session["logged_in"] = null;
             return RedirectToAction("Index", "Home");
         }
-        [HttpGet]
         public ActionResult UserProfile(int id)
         {
+
             EnergyContext db = new EnergyContext();
             List<ProductWithUser> products = new List<ProductWithUser>();
             ///////////////////////////////////////// get user products
@@ -151,6 +151,7 @@ namespace EnergyTrade.Controllers
                 
                 products.Add(productWithUser);
             }
+            ViewBag.Products = products;
             //////////////////////////////////////// user account properties
             bool myprofile;
             myprofile = (Convert.ToInt32(Session["logged_Id"]) == id) ? true : false;
@@ -171,14 +172,7 @@ namespace EnergyTrade.Controllers
             }
         }
 
-        public ActionResult Add() 
-        {
-            if (string.IsNullOrEmpty((string)Session["logged_in"]))
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            return View();
-        }
+
         [HttpPost]
         public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar, HttpPostedFileBase ImageFile)
         {
@@ -190,7 +184,11 @@ namespace EnergyTrade.Controllers
             {
                 EnergyContext db = new EnergyContext(); //set db
                 StockItem newStockitem = new StockItem(); //new stockitem
-                byte[] byteImg = MyMethods.ConverToBytes(ImageFile);
+                var filename = Path.GetFileName(ImageFile.FileName);
+                System.Drawing.Image sourceimage =
+                    System.Drawing.Image.FromStream(ImageFile.InputStream);
+                byte[] byteImg = MyMethods.ResizeImage(sourceimage, 540, 540);
+
                 var brandid = db.Brands.Where(x => x.Name == Brand).ToList().FirstOrDefault();
                 Product newProduct = new Product();
                 if (brandid == null)
@@ -236,6 +234,10 @@ namespace EnergyTrade.Controllers
             return View();
 
         }
+        public ActionResult Add()
+        {
+            return View();
+        }
         public ActionResult Upload(HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
@@ -254,39 +256,38 @@ namespace EnergyTrade.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            List<StockItem> MyProducts = new List<StockItem>();
-            //var brandid = db.Products.Where(x =>x.Brand.Id == 24).ToList().FirstOrDefault();
-            //string imreBase64Data = Convert.ToBase64String(brandid.Image);
-            //string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
-            //ViewBag.ImageData = imgDataURL;
             EnergyContext db = new EnergyContext();
-            var username = Convert.ToString(Session["logged_in"]);
-            
-            
-            var user = db.Users.Where(x => x.Name == username).ToList().FirstOrDefault();
-
-
-            var stock = db.Stocks.Where(x => x.User.Id == user.Id).ToList().FirstOrDefault();
-            var StockItems = db.StockItems.Where(x => x.Stock.Id == stock.Id).ToList();
-            //var result = StockItems[0]
-            List<int> ItemIds = new List<int>();
-            //List<Product> ExistingProducts = new List<Product>();
-            foreach(var item in StockItems)
+            List<ProductWithUser> products = new List<ProductWithUser>();
+            var stockItems = db.StockItems
+                .Include("Stock")
+                .Include("Product")
+                .ToList();
+            var products1 = db.Products
+                .Include("Brand")
+                .ToList();
+            foreach (var si in stockItems)
             {
-                var Product = db.StockItems.Find(item.Id);
-                db.Entry(Product)
-                    .Reference(u => u.Product)
-                    .Load();
+                var base64 = Convert.ToBase64String(si.Product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-                MyProducts.Add(Product);
+                var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
+
+
+                ProductWithUser productWithUser = new ProductWithUser()
+                {
+                    Brand = brand.Brand,
+                    Coffein = si.Product.Coffein,
+                    Image = imgSrc,
+                    Name = si.Product.Name,
+                    Size = si.Product.Size,
+                    Sugar = si.Product.Size,
+                    UserID = si.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
+                    ProductID = si.Product.Id,
+
+                };
+                products.Add(productWithUser);
             }
-            
-            //here need to save products into a list 
-            var ExistingProducts = db.Products.Where(x => x.Id == 11).ToList();
-            //var myproducts = db.Products.Where(x => x.Id == StockItems[0].Product.Id).ToList();
-
-
-            return View(MyProducts);
+        return View(products);
         }
         public ActionResult Kepfel(HttpPostedFileBase file)
         {

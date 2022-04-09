@@ -1,8 +1,11 @@
 ﻿using Csaba.Entity;
+using EnergyTrade.Services;
 using SSM.Common.Services.DataContext;
 using SSM.Common.Services.Security;
 using System;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -36,13 +39,14 @@ namespace EnergyTrade.Controllers {
                     return View("register");
                 } else {
                     DateTime localDate = DateTime.Now;
-
+                    Image image = Image.FromFile(Path.Combine(Server.MapPath("/images"), "profile.png"));
                     User newUser = new User();
                     Stock newStock = new Stock();
                     newUser.Name = Name;
                     newUser.Password = hashedPassword;
                     newUser.LastLoginDate = localDate;
                     newUser.DateJoined = localDate;
+                    newUser.Image = Services.MyMethods.ResizeImage(image, 100, 100);
                     db.Users.Add(newUser);
                     newStock.User = newUser;
                     db.Stocks.Add(newStock);
@@ -101,9 +105,45 @@ namespace EnergyTrade.Controllers {
         {
             return View();
         }
-        public ActionResult Settings()
+        public ActionResult Settings(string oldPassword,string newPassword1, string newPassword2, HttpPostedFileBase ImageFile)
         {
-            return View();
+            EnergyContext db = new EnergyContext();
+            var Name = (string)Session["logged_in"];
+            var a = db.Users
+                    .Where(x => x.Password == oldPassword || x.Name == Name).FirstOrDefault();
+            if (oldPassword != null || newPassword1 != null || newPassword2 != null)
+            {
+                string hashedPassword = HashService.HashData(oldPassword);
+                
+                if(a != null)
+                {
+                    if(ImageFile!= null)
+                    {
+                        var filename = Path.GetFileName(ImageFile.FileName);
+                        System.Drawing.Image sourceimage =
+                            System.Drawing.Image.FromStream(ImageFile.InputStream);
+                        a.Image = MyMethods.ResizeImage(sourceimage, 100, 100);
+                    }
+                    a.Password = HashService.HashData(newPassword1);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    //wrong pw
+                }
+            }
+            else
+            {
+                if (ImageFile != null)
+                {
+                    var filename = Path.GetFileName(ImageFile.FileName);
+                    System.Drawing.Image sourceimage =
+                        System.Drawing.Image.FromStream(ImageFile.InputStream);
+                    a.Image = MyMethods.ResizeImage(sourceimage, 100, 100);
+                    db.SaveChanges();
+                }
+            }
+            return View(a);
         }
     }
         

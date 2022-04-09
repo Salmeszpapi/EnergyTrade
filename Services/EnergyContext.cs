@@ -19,7 +19,7 @@ namespace SSM.Common.Services.DataContext {
         public DbSet<StockItem> StockItems { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
-
+        public DbSet<Trade> Trade { get; set; }
 
         public EnergyContext() : base("Data Source=localhost;Initial Catalog=Energy;Integrated Security=true;") {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<EnergyContext, EnergyTrade.Migrations.Configuration>());
@@ -37,6 +37,7 @@ namespace SSM.Common.Services.DataContext {
             modelBuilder.Configurations.Add(new StockItemConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new MessageConfiguration());
+            modelBuilder.Configurations.Add(new TradeConfiguration());
         }
 
     }

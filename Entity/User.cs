@@ -9,5 +9,6 @@ namespace Csaba.Entity {
         public string Password { get; set; }
         public DateTime LastLoginDate { get; set; }
         public DateTime DateJoined { get; set; }
+        public byte[] Image { get; set; }
     }
 }

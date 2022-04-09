@@ -249,11 +249,13 @@
     <Compile Include="Entity\EntityConfiguration\ProductConfiguration.cs" />
     <Compile Include="Entity\EntityConfiguration\StockConfiguration.cs" />
     <Compile Include="Entity\EntityConfiguration\StockItemConfiguration.cs" />
+    <Compile Include="Entity\EntityConfiguration\TradeConfiguration.cs" />
     <Compile Include="Entity\EntityConfiguration\UserConfiguration.cs" />
     <Compile Include="Entity\Message.cs" />
     <Compile Include="Entity\Product.cs" />
     <Compile Include="Entity\Stock.cs" />
     <Compile Include="Entity\Stockitem.cs" />
+    <Compile Include="Entity\Trade.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -297,8 +299,8 @@
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.3.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />

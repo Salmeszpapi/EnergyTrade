@@ -253,12 +253,12 @@
     </div>
 </div>
 <div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
-<div class="row mt-2 g-4">
-    @foreach (var item in ViewBag.MyProducts)
+@*<div class="row mt-2 g-4">
+    @foreach (var item in ViewBag.products)
     {
         <div class="col-md-3">
             <div class="card p-1">
-                <center><div class="flex-column lh-1 imagename"> <span>@item.Product.Name</span></div></center>
+                <center><div class="flex-column lh-1 imagename"> <span>@item.Name</span></div></center>
                 <div class="d-flex justify-content-center align-items-center p-1">
                     <img id="myImg" src="@item.Image" height="100" width="100" />
                 </div>
@@ -267,4 +267,4 @@
             </div>
         </div>
     }
-</div>
+</div>*@
