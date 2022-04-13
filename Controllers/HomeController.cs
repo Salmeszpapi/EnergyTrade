@@ -145,6 +145,10 @@ namespace EnergyTrade.Controllers {
             }
             return View(a);
         }
+        public ActionResult TemplateRender()
+        {
+            return View();
+        }
     }
         
 }
