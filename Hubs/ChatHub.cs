@@ -10,7 +10,7 @@ namespace EnergyTrade.Hubs
     {
         public void Send(string name, string message)
         {
-            Clients.All.AddNewMessageToPage();
+            Clients.All.addNewMessageToPage(name,message);
         }
     }
 }
