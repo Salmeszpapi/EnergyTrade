@@ -15,7 +15,7 @@ namespace EnergyTrade.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-
+            ViewBag.User = (string)Session["Logged_in"];
             return View();
         }
         public ActionResult Tes()

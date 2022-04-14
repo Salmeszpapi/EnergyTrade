@@ -345,6 +345,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Hubs\CounterHub.cs" />
     <Compile Include="Migrations\202201091959250_CreatePost.cs" />
     <Compile Include="Migrations\202201091959250_CreatePost.designer.cs">
       <DependentUpon>202201091959250_CreatePost.cs</DependentUpon>
@@ -353,6 +354,7 @@
     <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\ProductWithUser.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\SimpleUser.cs" />
     <Compile Include="Models\UserConnection.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

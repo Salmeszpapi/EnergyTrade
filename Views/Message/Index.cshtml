@@ -5,6 +5,7 @@
     <legend style="color:orangered">Welcome To  Satya's signalR MVC Group Chat Club</legend>
 </fieldset>
 <div class="form-group col-xl-12">
+    <h1 class="text-warning"><span id="UserOnline">0</span> Online</h1>
     <label style="color: blue; font-style: oblique;font-size: medium" id="label1">Write Your Message Here!</label><br />
     <textarea class="form-control" rows="4" cols="40" id="message" placeholder="Share what's in your mind..."></textarea>
     <br />
@@ -27,7 +28,7 @@
                 $('#discussion').append('<ul style="list-style-type:square"><li><strong style="color:red;font-style:normal;font-size:medium;text-transform:uppercase">' + htmlEncode(name) + '  ' + '<strong style="color:black;font-style:normal;font-size:medium;text-transform:lowercase">said</strong>'
                     + '</strong>: ' + '<strong style="color:blue;font-style:oblique;font-size:medium">' + htmlEncode(message) + '</strong>' + '</li></ul>');
             };
-            $('#displayname').val(prompt('Your Good Name Please:', ''));
+            $('#displayname').val("@ViewBag.User");
             $('#message').focus();
             $.connection.hub.start().done(function () {
                 $('#sendmessage').click(function () {
@@ -41,4 +42,25 @@
             return encodedValue;
         }
     </script>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.signalR-2.2.1.js")"></script>
+    <script src="@Url.Content("~/signalr/hubs")"></script>
+    <script>
+        $(function () {
+            //setup hubs
+            var counterHub = $.connection.counterHub;
+            $.connection.hub.start().done(function () {
+                //do something after hub connected
+            });
+            //function receive data from server. server call in on code behind
+            counterHub.client.UpdateCount = function (count) {
+                $('#UserOnline').text(count);
+            }
+
+        });
+
+
+    </script>
+    
 } 

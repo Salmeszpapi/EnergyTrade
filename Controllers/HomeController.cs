@@ -46,7 +46,7 @@ namespace EnergyTrade.Controllers {
                     newUser.Password = hashedPassword;
                     newUser.LastLoginDate = localDate;
                     newUser.DateJoined = localDate;
-                    newUser.Image = Services.MyMethods.ResizeImage(image, 100, 100);
+                    newUser.Image = MyMethods.ResizeImage(image, 100, 100);
                     db.Users.Add(newUser);
                     newStock.User = newUser;
                     db.Stocks.Add(newStock);

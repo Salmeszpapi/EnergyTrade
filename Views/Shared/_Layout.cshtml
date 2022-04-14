@@ -119,6 +119,7 @@
                         </div>
                         <table>
                             <tr>
+                                
                                 <td width="60px"><div class="imgBx"><img src="img1.jpg"></div></td>
                                 <td><h4>David<br><span>Italy</span></h4></td>
                             </tr>
@@ -158,25 +159,25 @@
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script>
-        // MenuToggle
-        let toggle = document.querySelector('.toggle');
-        let navigation = document.querySelector('.navigation');
-        let main = document.querySelector('.main');
+            // MenuToggle
+            let toggle = document.querySelector('.toggle');
+            let navigation = document.querySelector('.navigation');
+            let main = document.querySelector('.main');
 
-        toggle.onclick = function () {
-            navigation.classList.toggle('active');
-            main.classList.toggle('active');
-        }
+            toggle.onclick = function () {
+                navigation.classList.toggle('active');
+                main.classList.toggle('active');
+            }
 
-        // add hovered class in selected list item
-        let list = document.querySelectorAll('.navigation li');
-        function activeLink() {
+            // add hovered class in selected list item
+            let list = document.querySelectorAll('.navigation li');
+            function activeLink() {
+                list.forEach((item) =>
+                    item.classList.remove('hovered'));
+                this.classList.add('hovered');
+            }
             list.forEach((item) =>
-                item.classList.remove('hovered'));
-            this.classList.add('hovered');
-        }
-        list.forEach((item) =>
-            item.addEventListener('mouseover', activeLink));
+                item.addEventListener('mouseover', activeLink));
         </script>
 
 

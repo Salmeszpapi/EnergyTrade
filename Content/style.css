@@ -193,7 +193,6 @@ body {
             position: absolute;
             top: 0;
             left: 10px;
-            top: 10px;
             font-size: 1.2em;
         }
 
@@ -469,42 +468,6 @@ body {
     }
 }
 
-@media (max-width: 480px) {
-    .cardBox {
-        grid-template-columns: repeat(1,1fr);
-    }
-
-    .cardHeader h2 {
-        font-size: 20px;
-    }
-
-    .user {
-        min-width: 40px;
-    }
-
-    .navigation {
-        width: 100%;
-        left: -100%;
-        z-index: 1000;
-    }
-
-    .navigation {
-        width: 100%;
-        left: 0;
-    }
-
-    .toggle {
-        z-index: 10001;
-    }
-
-    .main.active .toggle {
-        position: fixed;
-        right: 0;
-        left: initial;
-        color: #fff;
-    }
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
@@ -610,13 +573,3 @@ select {
         background-color: #e20404;
         color: #fff
     }
-
-@media(max-width:576px) {
-    .wrapper {
-        padding: 25px 20px
-    }
-
-    #deactivate {
-        line-height: 18px
-    }
-}
