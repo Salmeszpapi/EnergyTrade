@@ -67,13 +67,13 @@ namespace EnergyTrade.Controllers {
         [HttpPost]
         public ActionResult Login(string Name, string password) 
         {
-            
-            EnergyContext db = new EnergyContext();
-            ViewData["Exist"] = null;
-            if (!string.IsNullOrEmpty((string)Session["logged_in"])) 
+            if (!string.IsNullOrEmpty((string)Session["logged_in"]))
             {
                 RedirectToAction("Index", "Market");
             }
+            EnergyContext db = new EnergyContext();
+            ViewData["Exist"] = null;
+
             if (!string.IsNullOrEmpty(Name)) 
             {
                 string hashedPassword = HashService.HashData(password);
@@ -107,17 +107,53 @@ namespace EnergyTrade.Controllers {
         }
         public ActionResult Settings(string oldPassword,string newPassword1, string newPassword2, HttpPostedFileBase ImageFile)
         {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             EnergyContext db = new EnergyContext();
             var Name = (string)Session["logged_in"];
             var a = db.Users
-                    .Where(x => x.Password == oldPassword || x.Name == Name).FirstOrDefault();
-            if (oldPassword != null || newPassword1 != null || newPassword2 != null)
+                    .Where(x => x.Name == Name).FirstOrDefault();
+            if (oldPassword == null && newPassword1 == null && newPassword2 == null && ImageFile == null)
             {
+                return View(a);
+            }
+            if (ImageFile != null)
+            {
+                var filename = Path.GetFileName(ImageFile.FileName);
+                System.Drawing.Image sourceimage =
+                    System.Drawing.Image.FromStream(ImageFile.InputStream);
+                a.Image = MyMethods.ResizeImage(sourceimage, 100, 100);
+                db.SaveChanges();
+                return View(a);
+            }
+            if (oldPassword == null)
+            {
+                ViewData["error"] = "The password has not match with the old password or the new password has not match";
+                return View(a);
+
+
+            }
+            else if (HashService.HashData(oldPassword) != a.Password)
+            {
+                ViewData["error"] = "The password has not match with the old password or the new password has not match";
+                return View(a);
+            }
+            else if (newPassword1 != newPassword2)
+            {
+                ViewData["error"] = "The passwords has not match";
+                return View(a);
+            }
+            else
+            {
+
+            
                 string hashedPassword = HashService.HashData(oldPassword);
-                
-                if(a != null)
+
+                if (a != null)
                 {
-                    if(ImageFile!= null)
+                    if (ImageFile != null)
                     {
                         var filename = Path.GetFileName(ImageFile.FileName);
                         System.Drawing.Image sourceimage =
@@ -126,24 +162,16 @@ namespace EnergyTrade.Controllers {
                     }
                     a.Password = HashService.HashData(newPassword1);
                     db.SaveChanges();
+
                 }
                 else
                 {
-                    //wrong pw
+                    ViewData["error"] = "Account not found relogin please";
+                    return View(a);
                 }
+                return View(a);
             }
-            else
-            {
-                if (ImageFile != null)
-                {
-                    var filename = Path.GetFileName(ImageFile.FileName);
-                    System.Drawing.Image sourceimage =
-                        System.Drawing.Image.FromStream(ImageFile.InputStream);
-                    a.Image = MyMethods.ResizeImage(sourceimage, 100, 100);
-                    db.SaveChanges();
-                }
-            }
-            return View(a);
+            
         }
         public ActionResult TemplateRender()
         {

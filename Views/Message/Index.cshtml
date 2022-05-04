@@ -13,11 +13,12 @@
     <br />
     <br />
     <label style="color: blue;font-style:oblique;font-size:medium" id="label2">Group Chat Conversations History</label>
-    <div class="container chatArea">
+    <div class="container chatArea" style= "height: 300px; overflow-y: scroll; display: flex; flex-direction: column-reverse; ">
         <input type="hidden" id="displayname" />
         <ul id="discussion"></ul>
     </div>
 </div>
+
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="~/signalr/hubs"></script>

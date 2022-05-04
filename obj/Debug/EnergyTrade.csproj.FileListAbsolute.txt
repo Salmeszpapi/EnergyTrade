@@ -760,3 +760,5 @@ C:\Users\salma\source\repos\EnergyTradeeeee\bin\Microsoft.Owin.Security.OAuth.xm
 C:\Users\salma\source\repos\EnergyTradeeeee\bin\Google.Protobuf.dll
 C:\Users\salma\source\repos\EnergyTradeeeee\bin\Google.Protobuf.pdb
 C:\Users\salma\source\repos\EnergyTradeeeee\bin\Google.Protobuf.xml
+C:\Users\salma\source\repos\EnergyTradeeeee\bin\Microsoft.AspNetCore.Mvc.Abstractions.dll
+C:\Users\salma\source\repos\EnergyTradeeeee\bin\Microsoft.AspNetCore.Mvc.Abstractions.xml

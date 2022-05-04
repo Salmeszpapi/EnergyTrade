@@ -1,1 +1,268 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<div id="wrapper">
+    <div id="w30">
+        <button class="tablink" onclick="openPage('Home', this, 'darkred')" id="defaultOpen">Your inventory</button>
+        <button class="tablink" onclick="openPage('News', this, 'darkgreen')">Their inventory</button>
+
+        <div id="Home" class="tabcontent">
+            @foreach (var item in Model)
+            {
+
+                    <div class="empty">
+                        <img class="fill" id="@item.ProductID" src="@item.Image" draggable="true" />
+                    </div>
+            }
+            </div>
+        <div id="News" class="tabcontent">
+            @if (ViewBag.theirProducts != null)
+            {
+                foreach (var item in ViewBag.theirProducts)
+                {
+                    <div class="empty">
+                        <img class="fill" id="@item.ProductID" src="@item.Image" draggable="true" />
+                    </div>
+                }
+            }
+
+
+        </div>
+    </div>
+    <div id="w70" class="tarolo">
+        <center><h1>Your items</h1></center>
+        <div class='top'>
+
+            @for (int i = 0; i < 15; i++)
+            {
+                <div class="empty"></div>
+            }
+
+        </div>
+        <center><h1>Their Items</h1></center>
+        <div class='bottom'>
+
+            @for (int i = 0; i < 15; i++)
+            {
+                <div class="empty"></div>
+            }
+        </div>
+    </div>
+    
+</div>
+<button onclick="sendToTrade()">Click me</button>
+
+
+<script>
+    const fill = document.querySelectorAll('.fill');
+    const empties = document.querySelectorAll('.empty');
+    var a;
+    for (let i = 0; i < fill.length; i++) {
+
+
+        // fill the listeners
+        fill[i].addEventListener('dragstart', dragStart);
+        fill[i].addEventListener('dragend', dragEnd);
+    }
+    //looop throught emptyes
+    for (const empty of empties) {
+        empty.addEventListener('dragover', dragOver);
+        empty.addEventListener('dragenter', dragEnter);
+        empty.addEventListener('dragleave', dragLeave);
+        empty.addEventListener('drop', dragDrop);
+    }
+
+    //drag functions
+    function dragStart(e) {
+        this.className += ' hold';
+        a = e.target;
+    }
+    function dragEnd() {
+        this.className = 'fill';
+        this.classList.add("mehet");
+    }
+    function dragOver(e) {
+        e.preventDefault();
+    }
+    function dragEnter(e) {
+        e.preventDefault();
+        this.className += ' hoveredk';
+    }
+    function dragLeave() {
+        this.className = 'empty';
+        this.classList.remove("mehet");
+    }
+    function dragDrop() {
+        this.className = 'empty';
+        this.name = "";
+        this.append(a);
+    }
+    function openPage(pageName, elmnt, color) {
+        // Hide all elements with class="tabcontent" by default */
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = color;
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+
+
+    async function sendToTrade()
+    {
+        const asd = document.querySelectorAll(".fill.mehet");
+        let valami = [];
+        asd.forEach(item => {
+            valami.push(item.getAttribute("id"))
+        });
+        let szalveta = {
+            'Ids' : valami
+        };
+        console.log(JSON.stringify(szalveta));
+
+        var data = {
+            'name': 'Dharmendra',
+            'fasz': 'kiskuki'
+        };
+        const res = await fetch("/Trade/GoToConfirm/", {
+            method: "POST",
+            body: JSON.stringify(szalveta),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const result = await res.json();
+        alert('Name : ' + result.Name + '\nDate : ' + result.DateTime);
+    };
+
+    
+</script>
+<style>
+    body {
+        background: darkblue;
+    }
+
+    .fill {
+        position: relative;
+        height: 80px;
+        width: 80px;
+        top: 5px;
+        left: 5px;
+        cursor: pointer;
+    }
+
+    .empty {
+        display: inline-block;
+        height: 90px;
+        width: 90px;
+        margin: 10px;
+        border: 3px rgb(21, 230, 39);
+        background-color: #d2afaf;
+    }
+
+    .hold {
+        border: solid rgb(226, 13, 13) 4px;
+    }
+
+    .hoveredk {
+        background: wheat;
+        border-style: dashed;
+    }
+
+    .invisible {
+        display: none;
+    }
+    /* Set height of body and the document to 100% to enable "full page tabs" */
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial;
+    }
+
+    /* Style tab links */
+    .tablink {
+        background-color: #555;
+        color: white;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        font-size: 17px;
+        width: 50%;
+    }
+
+        .tablink:hover {
+            background-color: #777;
+        }
+
+    /* Style the tab content (and add height:100% for full page content) */
+    .tabcontent {
+        display: flex;
+        flex-wrap: wrap;
+        color: white;
+        display: none;
+        padding: 100px 20px;
+        height: 100%;
+    }
+
+    #Home {
+        background-color: red;
+    }
+
+    #News {
+        background-color: green;
+    }
+
+    #Contact {
+        background-color: blue;
+    }
+
+    #About {
+        background-color: orange;
+    }
+
+    #wrapper {
+        display: flex;
+        width: 100%;
+    }
+
+    #w30 {
+        
+        background: yellow;
+        width: 30%;
+    }
+
+    #w70 {
+        background: pink;
+        width: 70%;
+    }
+    .top {
+        display: flex;
+        flex-wrap:wrap;
+        height: 50vh;
+        background-color: tomato;
+    }
+
+    .bottom {
+        display: flex;
+        flex-wrap: wrap;
+        height: 50vh;
+        background-color: forestgreen;
+    }
+</style>

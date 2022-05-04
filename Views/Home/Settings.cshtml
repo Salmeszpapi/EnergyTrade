@@ -1,5 +1,9 @@
 ﻿<div class="wrapper bg-white mt-sm-5">
     <h4 class="pb-4 border-bottom">Account settings</h4>
+    @if (ViewData["error"] != null)
+    {
+        <h1>@ViewData["error"]</h1>
+    }
     @using (Html.BeginForm("Settings", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         var base64 = Convert.ToBase64String(@Model.Image);
@@ -18,15 +22,15 @@
             </div>
         </div>
     }
-    </form>
+    
     <form action="/Home/Settings" method="post">
         <div class="py-2">
             <div class="row py-2">
                 <div class="col-md-6"> <label for="firstname">Old Password</label> <input type="password" name="oldPassword" class="bg-light form-control" placeholder=" Old password"> </div>
             </div>
             <div class="row py-2">
-                <div class="col-md-6"> <label for="newPw">New password</label> <input type="password" name="newPassword1" class="bg-light form-control" placeholder="New password"> </div>
-                <div class="col-md-6 pt-md-0 pt-3"> <label for="newPw">New password again</label> <input type="password" name="newPassword2" class="bg-light form-control" placeholder="New password again"> </div>
+                <div class="col-md-6"> <label for="newPw">New password</label> <input type="password" name="newPassword1" class="bg-light form-control" placeholder="New password" required> </div>
+                <div class="col-md-6 pt-md-0 pt-3"> <label for="newPw">New password again</label> <input type="password" name="newPassword2" class="bg-light form-control" placeholder="New password again" required> </div>
             </div>
             <div class="py-3 pb-4 border-bottom"> <input type="submit" value="Submit" class="btn btn-primary mr-3"> <button class="btn border button">Cancel</button> </div>
             <div class="d-sm-flex align-items-center pt-3" id="deactivate">
