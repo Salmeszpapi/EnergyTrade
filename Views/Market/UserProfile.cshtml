@@ -13,7 +13,11 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="user-info-left">
-                                <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Picture">
+                                @{ 
+                                    var base64 = Convert.ToBase64String(@Model.Image);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img class="imgAvatar" src="@imgSrc">
                                 @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
                                 {
                                     <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:green">(online)</i></h2>
@@ -77,174 +81,11 @@
                                     <h3><i class="fa fa-square"></i> About Me</h3>
                                     <p>Dramatically facilitate proactive solutions whereas professional intellectual capital. Holisticly utilize competitive e-markets through intermandated meta-services. Objectively.</p>
                                     <p>Monotonectally foster future-proof infomediaries before principle-centered interfaces. Assertively recaptiualize cutting-edge web services rather than emerging "outside the box" thinking. Phosfluorescently cultivate resource maximizing technologies and user-centric convergence. Completely underwhelm cross functional innovation vis-a-vis.</p>
-                                </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- END PROFILE TAB CONTENT -->
-                <!-- ACTIVITY TAB CONTENT -->
-                <div class="tab-pane activity" id="activity-tab">
-                    <ul class="list-unstyled activity-list">
-                        <li>
-                            <i class="fa fa-shopping-cart activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> commented on <a href="#">Special Deal 2013</a> <span class="timestamp">12 minutes ago</span>
-                            </p>
-                        </li>
-                        <li>
-                            <i class="fa fa-pencil activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> posted <a href="#">a new blog post</a> <span class="timestamp">4 hours ago</span>
-                            </p>
-                        </li>
-                        <li>
-                            <i class="fa fa-user activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> edited his profile <span class="timestamp">11 hours ago</span>
-                            </p>
-                        </li>
-                        <li>
-                            <i class="fa fa-pencil activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> has added review on <a href="#">jQuery Complete Guide</a> book <span class="timestamp">Yesterday</span>
-                            </p>
-                        </li>
-                        <li>
-                            <i class="fa fa-thumbs-up activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> liked <a href="#">a post</a> <span class="timestamp">December 12</span>
-                            </p>
-                        </li>
-                        <li>
-                            <i class="fa fa-tasks activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> has completed one task <span class="timestamp">December 11</span>
-                            </p>
-                        </li>
-                        <li>
-                            <i class="fa fa-picture-o activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> uploaded <a href="#">new photos</a> <span class="timestamp">December 5</span>
-                            </p>
-                        </li>
-                        <li>
-                            <i class="fa fa-credit-card activity-icon pull-left"></i>
-                            <p>
-                                <a href="#">Jonathan</a> has updated his credit card info <span class="timestamp">September 28</span>
-                            </p>
-                        </li>
-                    </ul>
-                    <p class="text-center more"><a href="#" class="btn btn-custom-primary">View more <i class="fa fa-long-arrow-right"></i></a></p>
-                </div>
-                <!-- END ACTIVITY TAB CONTENT -->
-                <!-- SETTINGS TAB CONTENT -->
-                <div class="tab-pane settings" id="settings-tab">
-                    <form class="form-horizontal" role="form">
-                        <fieldset>
-                            <h3><i class="fa fa-square"></i> Change Password</h3>
-                            <div class="form-group">
-                                <label for="old-password" class="col-sm-3 control-label">Old Password</label>
-                                <div class="col-sm-4">
-                                    <input type="password" id="old-password" name="old-password" class="form-control">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="password" class="col-sm-3 control-label">New Password</label>
-                                <div class="col-sm-4">
-                                    <input type="password" id="password" name="password" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password2" class="col-sm-3 control-label">Repeat Password</label>
-                                <div class="col-sm-4">
-                                    <input type="password" id="password2" name="password2" class="form-control">
-                                </div>
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <h3><i class="fa fa-square"></i> Privacy</h3>
-                            <label class="fancy-checkbox">
-                                <input type="checkbox">
-                                <span>Show my display name</span>
-                            </label>
-                            <label class="fancy-checkbox">
-                                <input type="checkbox">
-                                <span>Show my birth date</span>
-                            </label>
-                            <label class="fancy-checkbox">
-                                <input type="checkbox">
-                                <span>Show my email</span>
-                            </label>
-                            <label class="fancy-checkbox">
-                                <input type="checkbox">
-                                <span>Show my online status on chat</span>
-                            </label>
-                        </fieldset>
-                        <h3><i class="fa fa-square"> </i>Notifications</h3>
-                        <fieldset>
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label">Receive message from administrator</label>
-                                <ul class="col-sm-7 list-inline">
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-on" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-globe"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-globe"></i></span><input type="checkbox" checked="" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-globe'></i>" data-off-label="<i class='glyphicon glyphicon-globe'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-on" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-phone"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-phone"></i></span><input type="checkbox" checked="" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-phone'></i>" data-off-label="<i class='glyphicon glyphicon-phone'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-on" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-envelope"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-envelope"></i></span><input type="checkbox" checked="" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-envelope'></i>" data-off-label="<i class='glyphicon glyphicon-envelope'></i>"></div></div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label">New product has been added</label>
-                                <ul class="col-sm-7 list-inline">
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-off" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-globe"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-globe"></i></span><input type="checkbox" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-globe'></i>" data-off-label="<i class='glyphicon glyphicon-globe'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-on" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-phone"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-phone"></i></span><input type="checkbox" checked="" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-phone'></i>" data-off-label="<i class='glyphicon glyphicon-phone'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-on" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-envelope"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-envelope"></i></span><input type="checkbox" checked="" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-envelope'></i>" data-off-label="<i class='glyphicon glyphicon-envelope'></i>"></div></div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label">Product review has been approved</label>
-                                <ul class="col-sm-7 list-inline">
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-on" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-globe"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-globe"></i></span><input type="checkbox" checked="" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-globe'></i>" data-off-label="<i class='glyphicon glyphicon-globe'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-off" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-phone"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-phone"></i></span><input type="checkbox" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-phone'></i>" data-off-label="<i class='glyphicon glyphicon-phone'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-on" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-envelope"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-envelope"></i></span><input type="checkbox" checked="" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-envelope'></i>" data-off-label="<i class='glyphicon glyphicon-envelope'></i>"></div></div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label">Others liked your post</label>
-                                <ul class="col-sm-7 list-inline">
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-off" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-globe"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-globe"></i></span><input type="checkbox" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-globe'></i>" data-off-label="<i class='glyphicon glyphicon-globe'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-off" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-phone"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-phone"></i></span><input type="checkbox" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-phone'></i>" data-off-label="<i class='glyphicon glyphicon-phone'></i>"></div></div>
-                                    </li>
-                                    <li>
-                                        <div class="has-switch switch-animate switch-small switch-off" tabindex="0"><div><span class="switch-left"><i class="glyphicon glyphicon-envelope"></i></span><label>&nbsp;</label><span class="switch-right switch-default"><i class="glyphicon glyphicon-envelope"></i></span><input type="checkbox" class="bs-switch switch-small" data-off="default" data-on-label="<i class='glyphicon glyphicon-envelope'></i>" data-off-label="<i class='glyphicon glyphicon-envelope'></i>"></div></div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </fieldset>
-                    </form>
-                    <p class="text-center"><a href="#" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Save Changes</a></p>
-                </div>
-                <!-- END SETTINGS TAB CONTENT -->
             </div>
         </div>
 
@@ -252,19 +93,164 @@
 
     </div>
 </div>
-<div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
-@*<div class="row mt-2 g-4">
+<div>
+    
+</div>
+<div class="gallery">
     @foreach (var item in ViewBag.products)
     {
-        <div class="col-md-3">
-            <div class="card p-1">
-                <center><div class="flex-column lh-1 imagename"> <span>@item.Name</span></div></center>
-                <div class="d-flex justify-content-center align-items-center p-1">
-                    <img id="myImg" src="@item.Image" height="100" width="100" />
-                </div>
-                <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.Product.UserID)">User profile</a></div></center>
-                <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.Product.Id)">Item details</a></div></center>
-            </div>
+        <div class="contentk">
+            <img src="@item.Image">
+            <h3>@item.Name</h3>
+            <p>@item.Brand.Name</p>
+            <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
+            <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
+
+            <ul class="ulk">
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star checked"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
+
+            <button class="buy-1" onclick="location.href='../../Trade?Id=@item.UserID'">Buy Now</button>
         </div>
+
     }
-</div>*@
+</div>
+
+
+<style>
+    h3 {
+        text-align: center;
+        font-size: 30px;
+        margin: 0;
+        padding-top: 10px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0;
+    }
+
+    .contentk {
+        margin: 15px;
+        box-sizing: border-box;
+        float: left;
+        text-align: center;
+        border-radius: 20px;
+        cursor: pointer;
+        padding-top: 10px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        transition: .4s;
+        background: #f2f2f2;
+    }
+
+        .contentk:hover {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16) 0 3px 6px rgba(0,0,0,0.23);
+            transform: translate(0px, -8px);
+        }
+
+    img {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+
+    p {
+        text-align: center;
+        color: #b2bec3;
+        padding-top: 0 8px;
+    }
+
+    h6 {
+        font-size: 26px;
+        text-align: center;
+        color: #222f3e;
+        margin: 0;
+    }
+
+    .ulk {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .li {
+        padding: 5px;
+    }
+
+    .fa {
+        font-size: 26px;
+        transition: .4s;
+    }
+
+    .checked {
+        color: #ff9f43;
+    }
+
+    .fa:hover {
+        transform: scale(1.3);
+        transition: .6s;
+    }
+
+    button {
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        width: 100%;
+        padding: 15px;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        margin-top: 5px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .buy-1 {
+        background: #2183a2;
+    }
+
+    .buy-2 {
+        background: #3b3e63;
+    }
+
+    .buy-3 {
+        background: #0b0b0b;
+    }
+
+    .buy-4 {
+        background: #ff9f43;
+    }
+
+    @@media(max-width:1000px) {
+        .contentk {
+            width: 45%;
+        }
+    }
+
+    @@media(max-width:750px) {
+        .contentk {
+            width: 100%;
+        }
+    }
+    .imgAvatar {
+        border-radius: 50%;
+    }
+</style>
+
+

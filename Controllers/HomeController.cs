@@ -31,11 +31,16 @@ namespace EnergyTrade.Controllers {
             EnergyContext db = new EnergyContext();
             string hashedPassword = HashService.HashData(password);
             ViewData["Exist"] = null;
+            if (password != password2)
+            {
+                ViewData["Exist"] = "The passwords doesn't match!";
+                return View("register");
+            }
             if (!string.IsNullOrEmpty(Name)) {
                 var a = db.Users.Where(x => x.Name == Name).ToList();
                 if (a.Any()) {
                     //Existing user name
-                    ViewData["Exist"] = Name;
+                    ViewData["Exist"] = Name + "Is already taken";
                     return View("register");
                 } else {
                     DateTime localDate = DateTime.Now;
@@ -94,8 +99,8 @@ namespace EnergyTrade.Controllers {
                     return RedirectToAction("Index", "Market");
                 } else 
                 {
-                    
-                    ViewData["NotFound"] = "Username or password is incorrect";
+
+                    ViewData["Exist"] = Name + "is already taken";
                     return View("Login");
                 }
             }
@@ -147,8 +152,6 @@ namespace EnergyTrade.Controllers {
             }
             else
             {
-
-            
                 string hashedPassword = HashService.HashData(oldPassword);
 
                 if (a != null)

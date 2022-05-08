@@ -62,6 +62,11 @@ namespace EnergyTrade.Controllers
         {
             EnergyContext db = new EnergyContext();
             List<Product> products = new List<Product>();
+            int SizeI = Convert.ToInt32(Size);
+            var resultProducts = db.Products
+                .Include("Stock")
+                .Include("Brand")
+                .Where(x=>x.Brand.Name == Brands && x.Size == SizeI && x.Sugar == Sugar).ToList();
 
             int sugarOption = Sugar == "Withoutsugar" ? 0 : 1;
             string request= "";
@@ -124,6 +129,7 @@ namespace EnergyTrade.Controllers
             var stockItems = db.StockItems
                 .Include("Stock")
                 .Include("Product")
+                .Where(x => x.Stock.Id == id)
                 .ToList();
             var products1 = db.Products
                 .Include("Brand")
@@ -146,6 +152,7 @@ namespace EnergyTrade.Controllers
                     Sugar = si.Product.Size,
                     UserID = si.Stock.Id,
                     ProductID = si.Product.Id,
+                    
 
                 };
                 
@@ -163,6 +170,8 @@ namespace EnergyTrade.Controllers
                     DataJoined = person.DateJoined,
                     LastLoginDate = person.LastLoginDate,
                     OwnProfile = false,
+                    Image = person.Image,
+                    
                 };
                 return View(neprofile);
             }
@@ -174,7 +183,7 @@ namespace EnergyTrade.Controllers
 
 
         [HttpPost]
-        public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar, HttpPostedFileBase ImageFile)
+        public ActionResult Add(string Brand, string Name, string Size, string Coffein, string Sugar,string Price, HttpPostedFileBase ImageFile)
         {
             if (string.IsNullOrEmpty((string)Session["logged_in"]))
             {
@@ -209,8 +218,9 @@ namespace EnergyTrade.Controllers
                 newProduct.Name = Name;
                 newProduct.Size = Convert.ToInt32(Size);
                 newProduct.Coffein = Convert.ToInt32(Coffein);
-                newProduct.Sugar = Convert.ToInt32(Sugar);
+                newProduct.Sugar = Sugar;
                 newProduct.Image = byteImg;
+                newProduct.Price = Convert.ToDouble(Price);
 
                 newStockitem.Product = newProduct;
                 newStockitem.Count = 1;
@@ -328,7 +338,15 @@ namespace EnergyTrade.Controllers
             var base64 = Convert.ToBase64String(productInfo.Image);
             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
+            var user = db.StockItems
+                .Include("Product")
+                .Include("Stock")
+                .Where(x => x.Product.Id == Id).FirstOrDefault();
+
+
+
             ViewBag.ImgSrc = imgSrc;
+            ViewBag.User = user.Stock.Id;
             productInfo.Seen++;
             db.SaveChanges();
             return View(productInfo);

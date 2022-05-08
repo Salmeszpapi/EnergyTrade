@@ -3,18 +3,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@if (@ViewData["Exist"] != null)
-{
-    <h3>@ViewData["Exist"] nevű felhasználó már foglalt</h3>
-}
+
 <link rel="stylesheet" type="text/css" href="style.css">
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <div class="container">
+    @if (@ViewData["Exist"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <h3>@ViewData["Exist"]</h3>
+        </div>
+    }
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
                 <h3>Register</h3>
+
                 <div class="d-flex justify-content-end social_icon">
                     <span><i class="fab fa-facebook-square"></i></span>
                     <span><i class="fab fa-google-plus-square"></i></span>
@@ -65,7 +69,6 @@
     @@import url('https://fonts.googleapis.com/css?family=Numans');
 
     html, body {
-        background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         height: 100%;
@@ -82,13 +85,13 @@
         margin-top: auto;
         margin-bottom: auto;
         width: 400px;
-        background-color: rgba(0,0,0,0.5) !important;
+        background-color: rgba(0,0,100,0.7) !important;
     }
 
     .social_icon span {
         font-size: 60px;
         margin-left: 10px;
-        color: #FFC312;
+        color: aliceblue;
     }
 
         .social_icon span:hover {
@@ -108,7 +111,7 @@
 
     .input-group-prepend span {
         width: 50px;
-        background-color: #FFC312;
+        background-color: dodgerblue;
         color: black;
         border: 0 !important;
     }
@@ -131,7 +134,7 @@
 
     .login_btn {
         color: black;
-        background-color: #FFC312;
+        background-color: dodgerblue;
         width: 140px;
     }
 

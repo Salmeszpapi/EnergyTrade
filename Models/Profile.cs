@@ -13,6 +13,7 @@ namespace EnergyTrade.Models
         public DateTime LastLoginDate { get; set; }
         public DateTime DataJoined { get; set; }
         public bool OwnProfile { get; set; }
+        public byte[] Image { get; set; }
 
     }
 

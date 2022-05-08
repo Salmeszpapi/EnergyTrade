@@ -1,4 +1,5 @@
-﻿using EnergyTrade.Models;
+﻿using Csaba.Entity;
+using EnergyTrade.Models;
 using Microsoft.AspNetCore.Mvc;
 using SSM.Common.Services.DataContext;
 using System;
@@ -101,7 +102,101 @@ namespace EnergyTrade.Controllers
 
         public ActionResult GoToConfirm(string[] Ids)
         {
+            EnergyContext db = new EnergyContext();
+            List<string[]> list = new List<string[]>();
+            List<string[]> list2 = new List<string[]>();
+            string sender = "";
+            string receiver = "";
+            int senderId = Convert.ToInt32(Ids[0].Split(';')[0]);
+            int receiverId = Convert.ToInt32(Ids[Ids.Length-1].Split(';')[0]);
+            foreach (var i in Ids)
+            {
+                if(senderId == Convert.ToInt32(i.Split(';')[0]))
+                {
+                    list.Add(i.Split(';'));
+                }
+                else
+                {
+                    list2.Add(i.Split(';'));
+                }
+            }
+            for(int i = 0; i < list.Count; i++)
+            {
+                for(int j = 0; j < list[i].Length; j++)
+                {
+                    if(j == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        sender += list[i][j].ToString() + ";";
+                    }
+                    
+                }
+            }
+            for (int i = 0; i < list2.Count; i++)
+            {
+                for (int j = 0; j < list2[i].Length; j++)
+                {
+                    
+                    if (j == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        receiver += list2[i][j].ToString() + ";";
+                    }
+                }
+            }
+            Csaba.Entity.Trade trade = new Csaba.Entity.Trade()
+            {
+                Date = DateTime.Now,
+                IsCompleted = 0,
+                Receiver = receiverId,
+                Sender = senderId,
+                ReceiverItems = receiver,
+                SenderItems = sender,
+            };
+            db.Trade.Add(trade);
+            db.SaveChanges();
             return Json(new { Name = "ye", DateTime = DateTime.Now.ToShortDateString() });
+        }
+        public ActionResult TradeRequests(string tradeStatus = "sended")
+        {
+            EnergyContext db = new EnergyContext();
+            List<Product> myProducts = new List<Product>();
+            List<Product> hisProducts = new List<Product>();
+            List<TradeAgent> agents = new List<TradeAgent>();
+            int myId = Convert.ToInt32(Session["Logged_Id"]);
+            if (tradeStatus == "received")
+            {
+                var received = db.Trade
+                    .Where(x => x.Receiver == myId)
+                    .ToList();
+                string[] rItems;
+                return View(received);
+            }
+            else if (tradeStatus == "sended")
+            {
+                var sended = db.Trade
+                    .Where(x => x.Sender == myId)
+                    .Where(x => x.IsCompleted == 0)
+                    .ToList();
+                return View(sended);
+
+            }else if(tradeStatus == "Hystori")
+            {
+                var history = db.Trade.Where(x => x.Receiver == myId || x.Sender == myId).ToList();
+                return View(history);
+            }
+            else
+            {
+                Session["Error"] = "Internal error";
+            }
+            
+            return View();
         }
     }
 }

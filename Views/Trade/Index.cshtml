@@ -9,10 +9,9 @@
         <div id="Home" class="tabcontent">
             @foreach (var item in Model)
             {
-
-                    <div class="empty">
-                        <img class="fill" id="@item.ProductID" src="@item.Image" draggable="true" />
-                    </div>
+                <div class="empty">
+                    <img class="fill" id="@item.UserID;@item.ProductID" src="@item.Image" draggable="true" />
+                </div>
             }
             </div>
         <div id="News" class="tabcontent">
@@ -21,7 +20,7 @@
                 foreach (var item in ViewBag.theirProducts)
                 {
                     <div class="empty">
-                        <img class="fill" id="@item.ProductID" src="@item.Image" draggable="true" />
+                        <img class="fill" id="@item.UserID;@item.ProductID" src="@item.Image" draggable="true" />
                     </div>
                 }
             }
@@ -136,7 +135,7 @@
 
         var data = {
             'name': 'Dharmendra',
-            'fasz': 'kiskuki'
+            'ido': 'as'
         };
         const res = await fetch("/Trade/GoToConfirm/", {
             method: "POST",

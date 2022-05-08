@@ -1,0 +1,30 @@
+﻿<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Sender</th>
+            <th scope="col">Receiver</th>
+            <th scope="col">SenderItems</th>
+            <th scope="col">ReceiverItems</th>
+            <th scope="col">Date</th>
+            <th scope="col">Iscompleted</th>
+            <th scope="col">Choose</th>
+
+        </tr>
+    </thead>
+    @foreach(var item in Model){
+        <tbody>
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Sender</td>
+                <td>@item.Receiver</td>
+                <td>@item.SenderItems</td>
+                <td>@item.ReceiverItems</td>
+                <td>@item.Date</td>
+                <td>@item.IsCompleted</td>
+                <td>Mark</td>
+            </tr>
+        </tbody>
+     }
+
+</table>
