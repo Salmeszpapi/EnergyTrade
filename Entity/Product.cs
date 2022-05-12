@@ -13,5 +13,6 @@ namespace Csaba.Entity {
         public byte[] Image { get; set; }
         public int Seen { get; set; }
         public double Price { get; set; }
+        public int Raiting { get; set; }
     }
 }

@@ -22,7 +22,8 @@
                 <td>@item.ReceiverItems</td>
                 <td>@item.Date</td>
                 <td>@item.IsCompleted</td>
-                <td>Mark</td>
+                <td><button class="buy-1" onclick="location.href='../Trade/CompleteTrade?tradeId=@ViewBag.User&status=1'">Accept</button>
+                <button class="buy-1" onclick="location.href='../Trade/CompleteTrade?tradeId=@ViewBag.User&status=2">Cancel</button></td>
             </tr>
         </tbody>
      }

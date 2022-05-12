@@ -50,6 +50,7 @@ namespace EnergyTrade.Controllers
                     Sugar = si.Product.Size,
                     UserID = si.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
                     ProductID = si.Product.Id,
+                    Rating = si.Product.Raiting
 
                 };
                 products.Add(productWithUser);
@@ -348,6 +349,14 @@ namespace EnergyTrade.Controllers
             ViewBag.ImgSrc = imgSrc;
             ViewBag.User = user.Stock.Id;
             productInfo.Seen++;
+            if(productInfo.Seen < 10)
+            {
+                productInfo.Raiting = 0;
+            }
+            switch (productInfo) { 
+            case :
+            }
+
             db.SaveChanges();
             return View(productInfo);
         }

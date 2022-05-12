@@ -161,7 +161,7 @@ namespace EnergyTrade.Controllers
             };
             db.Trade.Add(trade);
             db.SaveChanges();
-            return Json(new { Name = "ye", DateTime = DateTime.Now.ToShortDateString() });
+            return Json(new { Name = "Arrived!", DateTime = DateTime.Now.ToShortDateString() });
         }
         public ActionResult TradeRequests(string tradeStatus = "sended")
         {
@@ -175,7 +175,6 @@ namespace EnergyTrade.Controllers
                 var received = db.Trade
                     .Where(x => x.Receiver == myId)
                     .ToList();
-                string[] rItems;
                 return View(received);
             }
             else if (tradeStatus == "sended")
@@ -197,6 +196,30 @@ namespace EnergyTrade.Controllers
             }
             
             return View();
+        }
+        public ActionResult CompleteTrade(int tradeId, int status)
+        {
+            EnergyContext db = new EnergyContext();
+            var tradeRow = db.Trade.Where(x => x.Id == tradeId).FirstOrDefault();
+            var receiverItems = tradeRow.ReceiverItems.Split(';');
+            var senderItems = tradeRow.SenderItems.Split(';');
+            int counter = 0;
+            foreach(var item in receiverItems)
+            {
+                var stockItems = db.StockItems
+                .Include("Product")
+                .Include("Stock")
+                .Where(x => x.Product.Id == Convert.ToInt32(item)).FirstOrDefault();
+                stockItems.Product.Id = 5;
+                //db.StockItems.Remove();
+            }
+            foreach (var item in senderItems)
+            {
+
+            }
+            
+
+            return RedirectToAction("TradeRequests", "trade");
         }
     }
 }

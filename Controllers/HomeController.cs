@@ -16,8 +16,8 @@ namespace EnergyTrade.Controllers {
             if (!string.IsNullOrEmpty((string)Session["logged_in"])) {
                 return RedirectToAction("Index", "Market");
             }
-            //Session["logged_in"] = "k";
-            //Session["Logged_Id"] = 1;
+            //Session["logged_in"] = "admin";
+            //Session["Logged_Id"] = 4;
             //return RedirectToAction("Add", "Market");
             return View("login");
 
@@ -99,7 +99,6 @@ namespace EnergyTrade.Controllers {
                     return RedirectToAction("Index", "Market");
                 } else 
                 {
-
                     ViewData["Exist"] = Name + "is already taken";
                     return View("Login");
                 }
