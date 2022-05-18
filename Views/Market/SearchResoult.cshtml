@@ -1,74 +1,279 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="d-flex justify-content-center align-items-center mt-5">
-    <div class="col-md-3">
-        <div class="card p-1">
-            <center><h5>Brands</h5></center>
-        </div>
-        <div class="card p-1">
-            <select class="btn btn-secondary dropdown-toggle" name="cars" id="cars">
-                <option class="btn btn-secondary dropdown-toggle" value="allBrands">All</option>
-                @foreach (var item in Model)
-                {
-                    if (@item.Brand.Checked == true)
+<form action="/Market/SearchResoult" method="get">
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="col-md-3">
+            <div class="card p-1">
+                <center><h5>Brands</h5></center>
+            </div>
+            <div class="card p-1">
+                <select class="btn btn-secondary dropdown-toggle" name="Brands" id="Brands">
+                    <option class="btn btn-secondary dropdown-toggle" value="allBrands">All</option>
+                    @foreach (var item in Model)
                     {
                         <option class="btn btn-secondary dropdown-toggle" value="@item.Brand.Name">@item.Brand.Name</option>
                     }
-                }
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card p-1">
-            <center><h5>Sizes</h5></center>
-        </div>
-        <div class="card p-1">
-            <select class="btn btn-secondary dropdown-toggle" name="cars" id="cars">
-                <option class="btn btn-secondary dropdown-toggle" value="allSizes">All</option>
-                @foreach (var item in Model)
-                {
-                    <option class="btn btn-secondary dropdown-toggle" value="@item.Size">@item.Size</option>
-                }
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card p-1">
-            <center><h5>Sugar</h5></center>
-        </div>
-        <div class="card p-1">
-            <select class="btn btn-secondary dropdown-toggle" name="cars" id="cars">
-                <option class="btn btn-secondary dropdown-toggle" value="allSugar">All</option>
-                <option class="btn btn-secondary dropdown-toggle" value="Withoutsugar">Without sugar</option>
-                <option class="btn btn-secondary dropdown-toggle" value="Withsugar">With sugar</option>
-            </select>
-        </div>
-
-    </div>
-    <div class="col-md-3">
-        <div class="card p-1">
-            <center><h5> </h5></center>
-        </div>
-        <div class="card p-1">
-            <button class="btn btn-dark">Search</button>
-        </div>
-    </div>
-</div>
-<div class="d-flex justify-content-center mt-3"> <span class="text text-center">Finding Best Products Now<br> in Your Fingertips</span> </div>
-<div class="row mt-2 g-4">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-3">
-            <div class="card p-1">
-                <div class="d-flex justify-content-center align-items-center p-1">
-                    <img id="myImg" src="@item.Image" height="100" width="100" />
-                </div>
-                <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
-                <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
+                </select>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="card p-1">
+                <center><h5>Sizes</h5></center>
+            </div>
+            <div class="card p-1">
+                <select class="btn btn-secondary dropdown-toggle" name="Size" id="Size">
+                    <option class="btn btn-secondary dropdown-toggle" value="allSizes">All</option>
+                    @foreach (var item in Model)
+                    {
+                        <option class="btn btn-secondary dropdown-toggle" value="@item.Size">@item.Size</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-1">
+                <center><h5>Sugar</h5></center>
+            </div>
+            <div class="card p-1">
+                <select class="btn btn-secondary dropdown-toggle" name="Sugar" id="Sugar">
+                    <option class="btn btn-secondary dropdown-toggle" value="allSugar">All</option>
+                    <option class="btn btn-secondary dropdown-toggle" value="Withoutsugar">Without sugar</option>
+                    <option class="btn btn-secondary dropdown-toggle" value="Withsugar">With sugar</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="card p-1">
+                <center><h5> </h5></center>
+            </div>
+            <div class="card p-1">
+                <button type="submit" class="btn btn-dark">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
+<head>
+    <title>Responsive Product Cards  designe with HTML and CSS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" contentk="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<div class="gallery">
+
+    @foreach (var item in Model)
+    {
+
+
+        <div class="contentk">
+            <img src="@item.Image">
+            <h3>@item.Name</h3>
+            <p>@item.Brand.Name</p>
+            <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
+            <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
+            @{
+                switch (item.Rating)
+                {
+                    case 0:
+                        // Use the text block below to separate html elements from code
+                        <ul class="ulk">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        break;  // Always break each case
+                    case 1:
+                        <ul class="ulk">
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        break;
+                    case 2:
+                        // Use the text block below to separate html elements from code
+                        <ul class="ulk">
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        break;  // Always break each case
+                    case 3:
+                        <ul class="ulk">
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        break;
+                    case 4:
+                        // Use the text block below to separate html elements from code
+                        <ul class="ulk">
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                        break;  // Always break each case
+                    case 5:
+                        <ul class="ulk">
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                            <li><i class="fa fa-star checked"></i></li>
+                        </ul>
+                        break;
+                    default:
+                        <text>
+                            <h1></h1>
+                        </text>
+                        break;
+                }
+            }
+            <button class="buy-1" onclick="location.href='../Trade?Id=@item.UserID'">Buy Now</button>
+        </div>
+
     }
 </div>
+
+<style>
+    h3 {
+        text-align: center;
+        font-size: 30px;
+        margin: 0;
+        padding-top: 10px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0;
+    }
+
+    .contentk {
+        margin: 15px;
+        box-sizing: border-box;
+        float: left;
+        text-align: center;
+        border-radius: 20px;
+        cursor: pointer;
+        padding-top: 10px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        transition: .4s;
+        background: #f2f2f2;
+    }
+
+        .contentk:hover {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16) 0 3px 6px rgba(0,0,0,0.23);
+            transform: translate(0px, -8px);
+        }
+
+    img {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+
+    p {
+        text-align: center;
+        color: #b2bec3;
+        padding-top: 0 8px;
+    }
+
+    h6 {
+        font-size: 26px;
+        text-align: center;
+        color: #222f3e;
+        margin: 0;
+    }
+
+    .ulk {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .li {
+        padding: 5px;
+    }
+
+    .fa {
+        font-size: 26px;
+        transition: .4s;
+    }
+
+    .checked {
+        color: #ff9f43;
+    }
+
+    .fa:hover {
+        transform: scale(1.3);
+        transition: .6s;
+    }
+
+    button {
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        width: 100%;
+        padding: 15px;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        margin-top: 5px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .buy-1 {
+        background: #2183a2;
+    }
+
+    .buy-2 {
+        background: #3b3e63;
+    }
+
+    .buy-3 {
+        background: #0b0b0b;
+    }
+
+    .buy-4 {
+        background: #ff9f43;
+    }
+
+    @@media(max-width:1000px) {
+        .contentk {
+            width: 45%;
+        }
+    }
+
+    @@media(max-width:750px) {
+        .contentk {
+            width: 100%;
+        }
+    }
+</style>
+
 

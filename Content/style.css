@@ -569,8 +569,9 @@ select {
     border: 1px solid #ddd
 }
 
-    .danger:hover {
-        background-color: #e20404;
-        color: #fff
-    }
+.danger:hover {
+    background-color: #e20404;
+    color: #fff
+}
+
 

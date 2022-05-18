@@ -12,10 +12,7 @@
                     <option class="btn btn-secondary dropdown-toggle" value="allBrands">All</option>
                     @foreach (var item in Model)
                     {
-                        if (@item.Brand.Checked == true)
-                        {
-                            <option class="btn btn-secondary dropdown-toggle" value="@item.Brand.Name">@item.Brand.Name</option>
-                        }
+                        <option class="btn btn-secondary dropdown-toggle" value="@item.Brand.Name">@item.Brand.Name</option>
                     }
                 </select>
             </div>
@@ -83,19 +80,19 @@
                 case 0:
                     // Use the text block below to separate html elements from code
                     <ul class="ulk">
-                        <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star "></i></li>
-                        <li><i class="fa fa-star "></i></li>
-                        <li><i class="fa fa-star "></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                     </ul>
                     break;  // Always break each case
                 case 1:
                     <ul class="ulk">
                         <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                     </ul>
                     break;
@@ -104,8 +101,8 @@
                     <ul class="ulk">
                         <li><i class="fa fa-star checked"></i></li>
                         <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                     </ul>
                     break;  // Always break each case
@@ -114,7 +111,7 @@
                         <li><i class="fa fa-star checked"></i></li>
                         <li><i class="fa fa-star checked"></i></li>
                         <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                     </ul>
                     break;
@@ -134,24 +131,16 @@
                         <li><i class="fa fa-star checked"></i></li>
                         <li><i class="fa fa-star checked"></i></li>
                         <li><i class="fa fa-star checked"></i></li>
-                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
                     </ul>
                     break;
                 default:
                     <text>
-                        <h1>WTF Site</h1>
+                        <h1></h1>
                     </text>
                     break;
             }
         }
-        <ul class="ulk">
-            <li><i class="fa fa-star checked"></i></li>
-            <li><i class="fa fa-star checked"></i></li>
-            <li><i class="fa fa-star checked"></i></li>
-            <li><i class="fa fa-star checked"></i></li>
-            <li><i class="fa fa-star"></i></li>
-        </ul>
-
         <button class="buy-1" onclick="location.href='../Trade?Id=@item.UserID'">Buy Now</button>
     </div>
 

@@ -23,6 +23,11 @@ namespace EnergyTrade.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+            if(TempData["product"] != null)
+            {
+                var asd = TempData["product"];
+                return View(asd);
+            }
             EnergyContext db = new EnergyContext();
             List<ProductWithUser> products = new List<ProductWithUser>();
             var stockItems = db.StockItems
@@ -57,57 +62,76 @@ namespace EnergyTrade.Controllers
 
                 //save object 
             }
+
             return View(products);
         }
         public ActionResult SearchResoult(string Brands, string Size, string Sugar)
         {
             EnergyContext db = new EnergyContext();
             List<Product> products = new List<Product>();
-            int SizeI = Convert.ToInt32(Size);
-            var resultProducts = db.Products
-                .Include("Stock")
-                .Include("Brand")
-                .Where(x=>x.Brand.Name == Brands && x.Size == SizeI && x.Sugar == Sugar).ToList();
+            List<Product> selectedProducts = new List<Product>();
+            List<ProductWithUser> products12 = new List<ProductWithUser>();
 
-            int sugarOption = Sugar == "Withoutsugar" ? 0 : 1;
-            string request= "";
-            if (Size != "allSizes")
+            var stockItems = db.StockItems
+                .Include("Stock")
+                .Include("Product")
+                .ToList();
+            var products1 = db.Products
+                .Include("Brand")
+                .ToList();
+            foreach (var si in stockItems)
             {
-                if (request.Length > 0)
+                var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
+                var base64 = Convert.ToBase64String(si.Product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                ProductWithUser productWithUser = new ProductWithUser()
                 {
-                    request += "&& ";
-                }
-                request += $"Size == {Size} ";
+                    Brand = brand.Brand,
+                    Coffein = si.Product.Coffein,
+                    Image = imgSrc,
+                    Name = si.Product.Name,
+                    Size = si.Product.Size,
+                    Sugar = si.Product.Size,
+                    UserID = si.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
+                    ProductID = si.Product.Id,
+                    Rating = si.Product.Raiting
+
+                };
+                products12.Add(productWithUser);
+
+                //save object 
             }
-            if (Sugar != "allSugar")
+
+
+            if (Brands == "allBrands")
             {
-                if (request.Length > 0)
-                {
-                    request += "&& ";
-                }
-                if (sugarOption == 0)
-                {
-                    request += $"Sugar == {sugarOption} ";
-                }
-                else
-                {
-                    request += $"Sugar > 0 ";
-                }
-            }
-            if(request.Length == 0)
-            {
-                var products1 = db.Products
-                    .ToList();
-                return View(products1);
+                //return all items 
             }
             else
             {
-                var products1 = db.Products
-                    .Include("Brand")
-                    .Where(request).ToList();
-                return View(products1);
+                products12 = products12.Where(x => x.Brand.Name == Brands).ToList();
             }
+            if(Size == "allSizes")
+            {
+                //return all items
+            }
+            else
+            {
+                int SizeInt = Convert.ToInt32(Size);
+                products12 = products12.Where(x => x.Size == SizeInt).ToList();
+            }
+            if(Sugar == "allSugar")
+            {
+
+            }
+            else
+            {
+                //products12 = products12.Where(x => x.Sugar == Sugar).ToList();
+            }
+            TempData["product"] = products12;
+            return RedirectToAction("Index", "Market");
         }
+        
         public ActionResult Test()
         {
             return View();
@@ -296,6 +320,7 @@ namespace EnergyTrade.Controllers
                     Sugar = si.Product.Size,
                     UserID = si.Stock.Id, // ide meg hozza tenni a User ID-t,  akie a product 
                     ProductID = si.Product.Id,
+                    Rating = si.Product.Raiting
 
                 };
                 products.Add(productWithUser);
@@ -353,10 +378,24 @@ namespace EnergyTrade.Controllers
             {
                 productInfo.Raiting = 0;
             }
-            switch (productInfo) { 
-            case :
+            switch(productInfo.Seen)
+            {
+                case 20:
+                    productInfo.Raiting = 1;
+                    break;
+                case 40:
+                    productInfo.Raiting = 2;
+                    break;
+                case 60:
+                    productInfo.Raiting = 3;
+                    break;
+                case 80:
+                    productInfo.Raiting = 4;
+                    break;
+                case 100:
+                    productInfo.Raiting = 5;
+                    break;
             }
-
             db.SaveChanges();
             return View(productInfo);
         }

@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                             <div class="user-info-right">
                                 <div class="basic-info">
-                                    <h3><i class="fa fa-square"></i> Basic Information</h3>
+                                    <h2 class="decorated"><span>Basic Information</span></h2>
                                     <p class="data-row">
                                         <span class="data-name">Username: </span>
                                         <span class="data-value">@Model.Name</span>
@@ -78,10 +78,10 @@
                                     </p>
                                 </div>
                                 <div class="about">
-                                    <h3><i class="fa fa-square"></i> About Me</h3>
+                                    <h2 class="decorated"><span>About Me</span></h2>
                                     <p>Dramatically facilitate proactive solutions whereas professional intellectual capital. Holisticly utilize competitive e-markets through intermandated meta-services. Objectively.</p>
                                     <p>Monotonectally foster future-proof infomediaries before principle-centered interfaces. Assertively recaptiualize cutting-edge web services rather than emerging "outside the box" thinking. Phosfluorescently cultivate resource maximizing technologies and user-centric convergence. Completely underwhelm cross functional innovation vis-a-vis.</p>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
     </div>
 </div>
 <div>
-    
+    <h2 class="decorated"><span>User item's</span></h2>
 </div>
 <div class="gallery">
     @foreach (var item in ViewBag.products)
@@ -251,6 +251,32 @@
     .imgAvatar {
         border-radius: 50%;
     }
+    .decorated {
+        overflow: hidden;
+        text-align: center;
+    }
+
+        .decorated > span {
+            position: relative;
+            display: inline-block;
+        }
+
+            .decorated > span:before, .decorated > span:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                border-bottom: 2px solid;
+                width: 100vw;
+                margin: 0 20px;
+            }
+
+            .decorated > span:before {
+                right: 100%;
+            }
+
+            .decorated > span:after {
+                left: 100%;
+            }
 </style>
 
 

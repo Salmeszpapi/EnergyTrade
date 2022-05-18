@@ -2,11 +2,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
-    <title>Responsive Product Cards  designe with HTML and CSS</title>
-    <meta charset="utf-8">
-    <meta name="viewport" contentk="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" href="style.css">
 </head>
 <div class="gallery">
@@ -15,22 +10,82 @@
     {
 
 
-        <div class="contentk">
-            <img src="@item.Image">
-            <h3>@item.Name</h3>
-            <p>@item.Brand.Name</p>
-            <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
-            <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
+    <div class="contentk">
+        <img src="@item.Image">
+        <h3>@item.Name</h3>
+        <p>@item.Brand.Name</p>
+        <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
+        <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
 
-            <ul class="ulk">
-                <li><i class="fa fa-star checked"></i></li>
-                <li><i class="fa fa-star checked"></i></li>
-                <li><i class="fa fa-star checked"></i></li>
-                <li><i class="fa fa-star checked"></i></li>
-                <li><i class="fa fa-star"></i></li>
-            </ul>
+        @{
+            switch (item.Rating)
+            {
+                case 0:
+                    // Use the text block below to separate html elements from code
+                    <ul class="ulk">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    break;  // Always break each case
+                case 1:
+                    <ul class="ulk">
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    break;
+                case 2:
+                    // Use the text block below to separate html elements from code
+                    <ul class="ulk">
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    break;  // Always break each case
+                case 3:
+                    <ul class="ulk">
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    break;
+                case 4:
+                    // Use the text block below to separate html elements from code
+                    <ul class="ulk">
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    break;  // Always break each case
+                case 5:
+                    <ul class="ulk">
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                        <li><i class="fa fa-star checked"></i></li>
+                    </ul>
+                    break;
+                default:
+                    <text>
+                        <h1></h1>
+                    </text>
+                    break;
+            }
+        }
 
-        </div>
+    </div>
 
     }
 </div>
@@ -162,4 +217,30 @@
             width: 100%;
         }
     }
+    .decorated {
+        overflow: hidden;
+        text-align: center;
+    }
+
+        .decorated > span {
+            position: relative;
+            display: inline-block;
+        }
+
+            .decorated > span:before, .decorated > span:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                border-bottom: 2px solid;
+                width: 100vw;
+                margin: 0 20px;
+            }
+
+            .decorated > span:before {
+                right: 100%;
+            }
+
+            .decorated > span:after {
+                left: 100%;
+            }
 </style>
