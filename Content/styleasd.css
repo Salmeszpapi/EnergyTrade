@@ -7,7 +7,6 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
-
 :root {
     --blue: #287bff;
     --white: #fff;
@@ -79,15 +78,6 @@ body {
                 color: var(--blue);
             }
 
-            .navigation ul li a .logo {
-                position: relative;
-                min-width: 60px;
-                height: 60px;
-                line-height: 70px;
-                text-align: center;
-            }
-            
-
             .navigation ul li a .icon {
                 position: relative;
                 display: block;
@@ -100,16 +90,6 @@ body {
                 .navigation ul li a .icon ion-icon {
                     font-size: 1.75em;
                 }
-
-            .navigation ul li a .titles {
-                position: relative;
-                display: block;
-                padding: 0 10px;
-                height: 60px;
-                line-height: 60px;
-                text-align: start;
-                white-space: nowrap;
-            }
 
             .navigation ul li a .title {
                 position: relative;
@@ -211,8 +191,9 @@ body {
 
         .search label ion-icon {
             position: absolute;
-            top: 11.5px;
-            left: 15px;
+            top: 0;
+            left: 10px;
+            top: 10px;
             font-size: 1.2em;
         }
 
@@ -488,6 +469,42 @@ body {
     }
 }
 
+@media (max-width: 480px) {
+    .cardBox {
+        grid-template-columns: repeat(1,1fr);
+    }
+
+    .cardHeader h2 {
+        font-size: 20px;
+    }
+
+    .user {
+        min-width: 40px;
+    }
+
+    .navigation {
+        width: 100%;
+        left: -100%;
+        z-index: 1000;
+    }
+
+    .navigation {
+        width: 100%;
+        left: 0;
+    }
+
+    .toggle {
+        z-index: 10001;
+    }
+
+    .main.active .toggle {
+        position: fixed;
+        right: 0;
+        left: initial;
+        color: #fff;
+    }
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
@@ -589,9 +606,8 @@ select {
     border: 1px solid #ddd
 }
 
-.danger:hover {
-    background-color: #e20404;
-    color: #fff
-}
-
+    .danger:hover {
+        background-color: #e20404;
+        color: #fff
+    }
 
