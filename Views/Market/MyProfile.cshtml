@@ -1,0 +1,290 @@
+﻿@model EnergyTrade.Models.Profile
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <div class="main-content">
+            <div class="tab-content profile-page">
+                <!-- PROFILE TAB CONTENT -->
+                <div class="tab-pane profile active" id="profile-tab">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="user-info-left">
+                                @{
+                                    var base64 = Convert.ToBase64String(@Model.Image);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img class="imgAvatar" src="@imgSrc">
+                                @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
+                                {
+                                    <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:green">(online)</i></h2>
+                                }
+                                else
+                                {
+                                    <h2>@Model.Name <i class="fa fa-circle green-font online-icon" style="color:red">(offline)</i></h2>
+                                }
+                                @if (Model.OwnProfile == false)
+                                {
+                                    <div class="contact">
+                                        <a href="#" class="btn btn-block btn-danger"><i class="fa fa-envelope-o"></i> Send Message</a>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="user-info-right">
+                                <div class="basic-info">
+                                    <h2 class="decorated"><span>Basic Information</span></h2>
+                                    <p class="data-row">
+                                        <span class="data-name">Username: </span>
+                                        <span class="data-value">@Model.Name</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Last Login: </span>
+                                        @if ((DateTime.Now - Model.LastLoginDate).Ticks / 100 < 60 * 100000)
+                                        {
+                                            <span class="data-value">online</span>
+                                        }
+                                        else
+                                        {
+                                            if ((DateTime.Now - Model.LastLoginDate).TotalDays >= 1)
+                                            {
+                                                <span class="data-value">
+                                                    @Convert.ToInt32(((DateTime.Now - Model.LastLoginDate).TotalDays)) days and
+                                                    @Convert.ToInt32(((DateTime.Now - Model.LastLoginDate).Hours)) hours ago
+                                                </span>
+                                            }
+                                            else if ((DateTime.Now - Model.LastLoginDate).Hours >= 1)
+                                            {
+                                                <span class="data-value">
+                                                    @Convert.ToInt32((DateTime.Now - Model.LastLoginDate).TotalHours) Hours and
+                                                    @Convert.ToInt32((DateTime.Now - Model.LastLoginDate).TotalMinutes) Minutes ago
+                                                </span>
+
+                                            }
+                                            else
+                                            {
+                                                <span class="data-value">@Convert.ToInt32((DateTime.Now - Model.LastLoginDate).TotalMinutes) Minutes ago</span>
+                                            }
+
+                                        }
+                                    <p class="data-row">
+                                        <span class="data-name">Date Joined</span>
+                                        <span class="data-value">@Model.DataJoined</span>
+                                    </p>
+                                </div>
+                                <div class="about">
+                                    <h2 class="decorated"><span>About Me</span></h2>
+
+                                    <form action="/action_page.php" id="usrform">
+
+                                        <br>
+                                        <textarea rows="4" cols="50" name="comment" form="usrform">@ViewBag.Products[0].AboutMe</textarea>
+                                        <input type="submit">
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<div>
+    <h2 class="decorated"><span>User item's</span></h2>
+</div>
+<div class="gallery">
+    @foreach (var item in ViewBag.products)
+    {
+    <div class="contentk">
+        <img src="@item.Image">
+        <h3>@item.Name</h3>
+        <p>@item.Brand.Name</p>
+        <center><div><a class="link-primary" href="@Url.Content("~/Market/UserProfile/?id=" + item.UserID)">User profile</a></div></center>
+        <center><div><a class="link-primary" href="@Url.Content("~/Market/Product/?id=" + item.ProductID)">Item details</a></div></center>
+
+        <ul class="ulk">
+            <li><i class="fa fa-star checked"></i></li>
+            <li><i class="fa fa-star checked"></i></li>
+            <li><i class="fa fa-star checked"></i></li>
+            <li><i class="fa fa-star checked"></i></li>
+            <li><i class="fa fa-star"></i></li>
+        </ul>
+
+        <button class="buy-1" onclick="location.href='../../Trade?Id=@item.UserID'">Feri</button>
+    </div>
+
+    }
+</div>
+
+
+<style>
+    h3 {
+        text-align: center;
+        font-size: 30px;
+        margin: 0;
+        padding-top: 10px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0;
+    }
+
+    .contentk {
+        margin: 15px;
+        box-sizing: border-box;
+        float: left;
+        text-align: center;
+        border-radius: 20px;
+        cursor: pointer;
+        padding-top: 10px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        transition: .4s;
+        background: #f2f2f2;
+    }
+
+        .contentk:hover {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16) 0 3px 6px rgba(0,0,0,0.23);
+            transform: translate(0px, -8px);
+        }
+
+    img {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+
+    p {
+        text-align: center;
+        color: #b2bec3;
+        padding-top: 0 8px;
+    }
+
+    h6 {
+        font-size: 26px;
+        text-align: center;
+        color: #222f3e;
+        margin: 0;
+    }
+
+    .ulk {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .li {
+        padding: 5px;
+    }
+
+    .fa {
+        font-size: 26px;
+        transition: .4s;
+    }
+
+    .checked {
+        color: #ff9f43;
+    }
+
+    .fa:hover {
+        transform: scale(1.3);
+        transition: .6s;
+    }
+
+    button {
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        width: 100%;
+        padding: 15px;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        margin-top: 5px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .buy-1 {
+        background: #2183a2;
+    }
+
+    .buy-2 {
+        background: #3b3e63;
+    }
+
+    .buy-3 {
+        background: #0b0b0b;
+    }
+
+    .buy-4 {
+        background: #ff9f43;
+    }
+
+    @@media(max-width:1000px) {
+        .contentk {
+            width: 45%;
+        }
+    }
+
+    @@media(max-width:750px) {
+        .contentk {
+            width: 100%;
+        }
+    }
+
+    .imgAvatar {
+        border-radius: 50%;
+    }
+
+    .decorated {
+        overflow: hidden;
+        text-align: center;
+    }
+
+        .decorated > span {
+            position: relative;
+            display: inline-block;
+        }
+
+            .decorated > span:before, .decorated > span:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                border-bottom: 2px solid;
+                width: 100vw;
+                margin: 0 20px;
+            }
+
+            .decorated > span:before {
+                right: 100%;
+            }
+
+            .decorated > span:after {
+                left: 100%;
+            }
+</style>
+
+

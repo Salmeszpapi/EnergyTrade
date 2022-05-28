@@ -374,6 +374,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\logos.png" />
     <Content Include="Content\MyStyleSheet.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
@@ -501,6 +502,7 @@
     <Content Include="Views\Trade\Index.cshtml" />
     <Content Include="Views\Home\TemplateRender.cshtml" />
     <Content Include="Views\Trade\TradeRequests.cshtml" />
+    <Content Include="Views\Market\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

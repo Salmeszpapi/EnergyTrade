@@ -10,5 +10,6 @@ namespace Csaba.Entity {
         public DateTime LastLoginDate { get; set; }
         public DateTime DateJoined { get; set; }
         public byte[] Image { get; set; }
+        public string AboutMe { get; set; }
     }
 }
