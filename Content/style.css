@@ -86,8 +86,6 @@ body {
                 line-height: 70px;
                 text-align: center;
             }
-            
-
             .navigation ul li a .icon {
                 position: relative;
                 display: block;
@@ -208,6 +206,7 @@ body {
             outline: none;
             border: 1px solid var(--black2);
         }
+
 
         .search label ion-icon {
             position: absolute;

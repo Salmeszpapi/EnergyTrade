@@ -10,9 +10,9 @@
             <div class="card p-1">
                 <select class="btn btn-secondary dropdown-toggle" name="Brands" id="Brands">
                     <option class="btn btn-secondary dropdown-toggle" value="allBrands">All</option>
-                    @foreach (var item in Model)
+                    @foreach (var item in ViewBag.Brand)
                     {
-                        <option class="btn btn-secondary dropdown-toggle" value="@item.Brand.Name">@item.Brand.Name</option>
+                        <option class="btn btn-secondary dropdown-toggle" value="@item">@item</option>
                     }
                 </select>
             </div>
@@ -24,9 +24,9 @@
             <div class="card p-1">
                 <select class="btn btn-secondary dropdown-toggle" name="Size" id="Size">
                     <option class="btn btn-secondary dropdown-toggle" value="allSizes">All</option>
-                    @foreach (var item in Model)
+                    @foreach (var item in ViewBag.Size)
                     {
-                        <option class="btn btn-secondary dropdown-toggle" value="@item.Size">@item.Size</option>
+                        <option class="btn btn-secondary dropdown-toggle" value="@item">@item</option>
                     }
                 </select>
             </div>

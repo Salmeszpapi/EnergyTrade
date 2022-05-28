@@ -19,17 +19,31 @@ namespace EnergyTrade.Controllers
         // GET: Market
         public ActionResult Index()
         {
+
             if (string.IsNullOrEmpty((string)Session["logged_in"]))
             {
                 return RedirectToAction("Login", "Home");
             }
-            if(TempData["product"] != null)
+            EnergyContext db = new EnergyContext();
+            List<ProductWithUser> products = new List<ProductWithUser>();
+            if (TempData["product"] != null)
             {
+                ViewBag.Brand = db.Brands
+                    .GroupBy(i => i.Name)
+                    .Where(g => g.Count() == 1)
+                    .Select(g => g.Key).ToList();
+                //save object 
+
+                ViewBag.Size = db.Products
+                    .GroupBy(i => i.Size)
+                    .Where(g => g.Count() == 1)
+                    .Select(g => g.Key).ToList();
+                //save object 
+
                 var asd = TempData["product"];
                 return View(asd);
             }
-            EnergyContext db = new EnergyContext();
-            List<ProductWithUser> products = new List<ProductWithUser>();
+            
             var stockItems = db.StockItems
                 .Include("Stock")
                 .Include("Product")
@@ -60,8 +74,18 @@ namespace EnergyTrade.Controllers
                 };
                 products.Add(productWithUser);
 
-                //save object 
+                
             }
+            ViewBag.Brand = db.Brands
+                    .GroupBy(i => i.Name)
+                    .Where(g => g.Count() == 1)
+                    .Select(g => g.Key).ToList();
+            //save object 
+            ViewBag.Size = db.Products
+                    .GroupBy(i => i.Size)
+                    .Where(g => g.Count() == 1)
+                    .Select(g => g.Key).ToList();
+            //save object 
 
             return View(products);
         }
@@ -129,6 +153,7 @@ namespace EnergyTrade.Controllers
                 //products12 = products12.Where(x => x.Sugar == Sugar).ToList();
             }
             TempData["product"] = products12;
+            
             return RedirectToAction("Index", "Market");
         }
         
@@ -145,9 +170,81 @@ namespace EnergyTrade.Controllers
             Session["logged_in"] = null;
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult MyProfile()
+        {
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            EnergyContext db = new EnergyContext();
+            List<ProductWithUser> products = new List<ProductWithUser>();
+            ///////////////////////////////////////// get user products
+            int id = Convert.ToInt32(Session["logged_Id"]);
+            var stockItems = db.StockItems
+                .Include("Stock")
+                .Include("Product")
+                .Where(x => x.Stock.Id == id)
+                .ToList();
+            var products1 = db.Products
+                .Include("Brand")
+                .ToList();
+            foreach (var si in stockItems)
+            {
+                var base64 = Convert.ToBase64String(si.Product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
+                var usr = db.Users.Where(x=>x.Id == id).FirstOrDefault();
+
+
+                ProductWithUser productWithUser = new ProductWithUser()
+                {
+                    Brand = brand.Brand,
+                    Coffein = si.Product.Coffein,
+                    Image = imgSrc,
+                    Name = si.Product.Name,
+                    Size = si.Product.Size,
+                    Sugar = si.Product.Size,
+                    UserID = si.Stock.Id,
+                    ProductID = si.Product.Id,
+                    AboutMe = usr.AboutMe,
+                    
+
+
+                };
+
+                products.Add(productWithUser);
+            }
+            ViewBag.Products = products;
+            //////////////////////////////////////// user account properties
+            bool myprofile;
+            myprofile = (Convert.ToInt32(Session["logged_Id"]) == id) ? true : false;
+            try
+            {
+                var person = db.Users.Where(x => x.Id == id).ToList().LastOrDefault();
+                Profile neprofile = new Profile()
+                {
+                    Name = person.Name,
+                    DataJoined = person.DateJoined,
+                    LastLoginDate = person.LastLoginDate,
+                    OwnProfile = myprofile,
+                    Image = person.Image,
+
+                };
+                return View(neprofile);
+            }
+            catch (Exception e)
+            {
+                return Content("Profile is not found please relog to the web application" + e);
+            }
+        }
+        [HttpGet]
         public ActionResult UserProfile(int id)
         {
-
+            if (string.IsNullOrEmpty((string)Session["logged_in"]))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             EnergyContext db = new EnergyContext();
             List<ProductWithUser> products = new List<ProductWithUser>();
             ///////////////////////////////////////// get user products
@@ -165,7 +262,7 @@ namespace EnergyTrade.Controllers
                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
                 var brand = products1.Where(x => x.Id == si.Product.Id).FirstOrDefault();
-
+                var usr = db.Users.Where(x => x.Id == id).FirstOrDefault();
 
                 ProductWithUser productWithUser = new ProductWithUser()
                 {
@@ -177,7 +274,7 @@ namespace EnergyTrade.Controllers
                     Sugar = si.Product.Size,
                     UserID = si.Stock.Id,
                     ProductID = si.Product.Id,
-                    
+                    AboutMe = usr.AboutMe
 
                 };
                 
@@ -194,7 +291,7 @@ namespace EnergyTrade.Controllers
                     Name = person.Name,
                     DataJoined = person.DateJoined,
                     LastLoginDate = person.LastLoginDate,
-                    OwnProfile = false,
+                    OwnProfile = myprofile,
                     Image = person.Image,
                     
                 };

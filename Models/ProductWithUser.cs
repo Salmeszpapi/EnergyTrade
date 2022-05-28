@@ -18,6 +18,7 @@ namespace EnergyTrade.Models
         public List<Brand> Brands { get; set; }
         public int ProductID { get; set; }
         public int Rating { get; set; }
+        public string AboutMe { get; set; }
 
     }
 }
