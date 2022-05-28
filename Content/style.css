@@ -86,6 +86,7 @@ body {
                 line-height: 70px;
                 text-align: center;
             }
+
             .navigation ul li a .icon {
                 position: relative;
                 display: block;
@@ -174,19 +175,23 @@ body {
 }
 
 .toggle {
-    position: relative;
+    position: fixed;
+    top: 0;
     width: 60px;
     height: 60px;
-    background: rgb(255, 255, 255);
+    background: rgb(255 255 255 / 42%);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2.5em;
     cursor: pointer;
+    z-index: 1;
+    border-radius: 25px;
 }
 
 .search {
     position: relative;
+    left: 90px;
     width: 400px;
     margin: 0 10px;
 }
@@ -207,7 +212,6 @@ body {
             border: 1px solid var(--black2);
         }
 
-
         .search label ion-icon {
             position: absolute;
             top: 11.5px;
@@ -215,14 +219,18 @@ body {
             font-size: 1.2em;
         }
 
-.user {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-}
+    .toggle, .search{
+        margin-top: 0;
+    }
+
+   /* .user {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+    }
 
     .user img {
         position: absolute;
@@ -231,7 +239,7 @@ body {
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
+    }*/
 
 .cardBox {
     position: relative;

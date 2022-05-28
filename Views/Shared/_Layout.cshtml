@@ -32,8 +32,7 @@
                 <ul>
                     <li>
                         <a href="@Url.Action("Index", "Market")">
-                    <div class="logo"><img src="logos.png" style="width:60px;height:60px;"> </div>
-                            <div class="logo"><img src="~/Content/logos.png" style="width:60px;height:60px;"> </div>
+                            <span class="logo"><img src="~/Content/logos.png" style="width:60px;height:60px;"> </span>
                             <span class="titles">Collandtra</span>
                         </a>
                     </li>
@@ -44,10 +43,9 @@
                         </a>
                     </li>
                     <li>
-                       <span class="title">My product</span>
-                        <a href="@Url.Action("MyProfile", "Market")">
+                        <a href="@Url.Action("MyItems", "Market")">
                             <span class="icon"><ion-icon name="bag-handle-outline"></ion-icon></span>
-                            <span class="title">My profile</span>
+                            <span class="title">My product</span>
                         </a>
                     </li>
                     <li>
@@ -98,9 +96,9 @@
                         </label>
                     </div>
                     <!-- userImg -->
-                    <div class="user">
+                    <!--<div class="user">
                         <img src="user.jpg">
-                    </div>
+                    </div>-->
                 </div>
 
                 <!-- cards -->
@@ -167,6 +165,7 @@
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script>
+
             // MenuToggle
             let toggle = document.querySelector('.toggle');
             let navigation = document.querySelector('.navigation');
