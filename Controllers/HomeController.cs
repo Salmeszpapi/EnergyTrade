@@ -52,6 +52,7 @@ namespace EnergyTrade.Controllers {
                     newUser.LastLoginDate = localDate;
                     newUser.DateJoined = localDate;
                     newUser.Image = MyMethods.ResizeImage(image, 100, 100);
+                    newUser.AboutMe = "smart independent living being, who need to update the profile :)";
                     db.Users.Add(newUser);
                     newStock.User = newUser;
                     db.Stocks.Add(newStock);
